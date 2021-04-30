@@ -1,0 +1,612 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     24395,        510]*)
+(*NotebookOutlinePosition[     25049,        533]*)
+(*  CellTagsIndexPosition[     25005,        529]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(p[z_, z1_, z3_, p1_, p3_]\  := \ 
+      p1 + \((p3 - p1)\) \((z - z1)\)/\((z3 - z1)\)\)], "Input"],
+
+Cell[BoxData[
+    \(zedge[lt_, lt1_, lt3_, z1_, z3_]\  := \ 
+      z1 + \((z3 - z1)\) \((lt - lt1)\)/\((lt3 - lt1)\)\)], "Input"],
+
+Cell[BoxData[
+    \(paeastwest[rlt_, lts_, ltn_, zb_, zt_, zbs_, zbn_, zts_, ztn_, pb_, 
+        pt_]\  := \ Integrate[
+        p[z, zb, zt, pb, pt]*rlt, {lt, lts, ltn}, {z, 
+          zedge[lt, lts, ltn, zbs, zbn], 
+          zedge[lt, lts, ltn, zts, ztn]}]\)], "Input"],
+
+Cell[BoxData[
+    \(patopbot[rlt_, lts_, ltn_, zw_, ze_, zsw_, znw_, zse_, zne_, pw_, 
+        pe_] := \ Integrate[
+        p[z, zw, ze, pw, pe]*rlt, {lt, lts, ltn}, {z, 
+          zedge[lt, lts, ltn, zsw, znw], 
+          zedge[lt, lts, ltn, zse, zne]}]\)], "Input"],
+
+Cell[BoxData[{
+    \(zface[ln_, lnw_, lne_, lt_, lts_, ltn_, zsw_, znw_, zse_, zne_]\  := \ 
+      zedge[ln, lnw, lne, zedge[lt, lts, ltn, zsw, znw], 
+        zedge[lt, lts, ltn, zse, zne]]\), "\[IndentingNewLine]", 
+    \(rln[lt_, lts_, ltn_, rlns_, rlnn_]\  := \ 
+      rlns + \((rlnn - rlns)\) \((lt - lts)\)/\((ltn - lts)\)\)}], "Input"],
+
+Cell[BoxData[
+    \(mass[rho_, rlt_, rlns_, rlnn_, lnw_, lne_, lts_, ltn_, zbsw_, zbnw_, 
+        zbse_, zbne_, ztsw_, ztnw_, ztse_, ztne_]\  := \ 
+      Integrate[
+        rho*rlt*rln[lt, lts, ltn, rlns, rlnn], {ln, lnw, lne}, {lt, lts, 
+          ltn}, {z, 
+          zface[ln, lnw, lne, lt, lts, ltn, zbsw, zbnw, zbse, zbne], 
+          zface[ln, lnw, lne, lt, lts, ltn, ztsw, ztnw, ztse, 
+            ztne]}]\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(pgradlon[rho_, rlt_, rlns_, rlnn_, lnw_, lne_, lts_, ltn_, zbsw_, 
+        zbse_, zbnw_, zbne_, ztsw_, ztse_, ztnw_, ztne_, zbw_, zbe_, ztw_, 
+        zte_, pbw_, pbe_, ptw_, 
+        pte_]\  := \ \((paeastwest[rlt, lts, ltn, zbw, ztw, zbsw, zbnw, ztsw, 
+              ztnw, pbw, ptw] - 
+            paeastwest[rlt, lts, ltn, zbe, zte, zbse, zbne, ztse, ztne, pbe, 
+              pte] + patopbot[rlt, lts, ltn, ztw, zte, ztsw, ztnw, ztse, 
+              ztne, ptw, pte] - 
+            patopbot[rlt, lts, ltn, zbw, zbe, zbsw, zbnw, zbse, zbne, pbw, 
+              pbe])\)/mass[rho, rlt, rlns, rlnn, lnw, lne, lts, ltn, zbsw, 
+          zbnw, zbse, zbne, ztsw, ztnw, ztse, ztne]\)\(\[IndentingNewLine]\)
+    \)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(testing\  = \ 
+      pgradlon[800.6, 50001. , 20000. , 
+        19998. , \((39.2*\[Pi]/180. )\), \((40. *\[IndentingNewLine]\[Pi]/
+              180. )\), \((20. *\[Pi]/180. )\), \((21. *\[Pi]/180. )\), 
+        28.003, 30.000453, 18.05, 21.0001, 84.7, 90.03, 123.056, 100.01, 
+        23.02, 25. , 99. , 94. , 240.00333, 211.011, 101.04, 
+        100.02]\)], "Input"],
+
+Cell[BoxData[
+    \(0.00006716358259429469`\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(simplecube\  = \ 
+      pgradlon[rho, rlt, rlns, rlnn, ln1, ln2, lt1, lt2, z1, z1, z1, z1, z2, 
+        z2, z2, z2, z1, z1, z2, z2, p1, p2, p1, 
+        p2]\), "\[IndentingNewLine]", 
+    \(Simplify[%]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(2\ \((\((lt1 - lt2)\)\ p1\ rlt\ \((z1 - z2)\) - \((lt1 - lt2)\)\ p2\ \
+rlt\ \((z1 - z2)\))\)\)\/\(\((\(-ln1\) + ln2)\)\ \((lt1 - lt2)\)\ rho\ \
+\((rlnn + rlns)\)\ rlt\ \((z1 - z2)\)\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\(\(2\ \((p1 - p2)\)\)\/\(\((ln1 - ln2)\)\ rho\ \((rlnn + 
+                rlns)\)\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(arbcube\  = \ 
+      pgradlon[rho, rlt, rlns, rlnn, lnw, lne, lts, ltn, zbsw, zbse, zbnw, 
+        zbne, ztsw, ztse, ztnw, ztne, zbw, zbe, ztw, zte, pbw, pbe, ptw, 
+        pte]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\((12\ \((\(-\(\(1\/\(6\ \((zbe - zbw)\)\)\)\((\((ltn - 
+                          lts)\)\ rlt\ \((pbw\ \((\(-zbne\^2\) + zbnw\^2 - 
+                                zbne\ zbse - zbse\^2 + 
+                                3\ zbe\ \((zbne - zbnw + zbse - zbsw)\) + 
+                                zbnw\ zbsw + zbsw\^2)\) + 
+                          pbe\ \((zbne\^2 - zbnw\^2 + 
+                                zbne\ \((zbse - 3\ zbw)\) - 
+                                zbnw\ \((zbsw - 3\ zbw)\) + \((zbse - 
+                                      zbsw)\)\ \((zbse + zbsw - 
+                                      3\ zbw)\))\))\))\)\)\) + \(\(1\/\(6\ \
+\((zbe - zte)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((pbe\ \((zbne\^2 + 
+                              zbne\ \((zbse - 3\ zte)\) + \((zbse - 
+                                    ztne)\)\ \((zbse - 3\ zte + 
+                                    ztne)\) + \((3\ zte - ztne)\)\ ztse - 
+                              ztse\^2)\) + 
+                        pte\ \((\(-zbne\^2\) - zbne\ zbse - zbse\^2 + 
+                              ztne\^2 + 
+                              3\ zbe\ \((zbne + zbse - ztne - ztse)\) + 
+                              ztne\ ztse + 
+                              ztse\^2)\))\))\)\) + \(\(1\/\(6\ \((zte - 
+                          ztw)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((ptw\ \((\(-ztne\^2\) + ztnw\^2 - 
+                              ztne\ ztse - ztse\^2 + 
+                              3\ zte\ \((ztne - ztnw + ztse - ztsw)\) + 
+                              ztnw\ ztsw + ztsw\^2)\) + 
+                        pte\ \((ztne\^2 - ztnw\^2 + 
+                              ztne\ \((ztse - 3\ ztw)\) - 
+                              ztnw\ \((ztsw - 3\ ztw)\) + \((ztse - 
+                                    ztsw)\)\ \((ztse + ztsw - 
+                                    3\ ztw)\))\))\))\)\) - \(\(1\/\(6\ \((zbw \
+- ztw)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((ptw\ \((\(-zbnw\^2\) - zbnw\ zbsw - 
+                              zbsw\^2 + 3\ zbnw\ zbw + 3\ zbsw\ zbw - 
+                              3\ zbw\ ztnw + ztnw\^2 - 3\ zbw\ ztsw + 
+                              ztnw\ ztsw + ztsw\^2)\) + 
+                        pbw\ \((zbnw\^2 + zbnw\ zbsw + zbsw\^2 - ztnw\^2 - 
+                              ztnw\ ztsw - ztsw\^2 - 
+                              3\ \((zbnw + zbsw - ztnw - 
+                                    ztsw)\)\ ztw)\))\))\)\))\))\)/\((\((lne - 
+                lnw)\)\ \((ltn - 
+                lts)\)\ rho\ rlt\ \((rlns\ \((zbne + zbnw + 2\ zbse + 
+                      2\ zbsw - ztne - ztnw - 2\ ztse - 2\ ztsw)\) + 
+                rlnn\ \((2\ zbne + 2\ zbnw + zbse + zbsw - 2\ ztne - 
+                      2\ ztnw - ztse - ztsw)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[%]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\((2\ \((\(-\(\(1\/\(zbe - 
+                        zbw\)\)\((pbw\ \((\(-zbne\^2\) + zbnw\^2 - 
+                            zbne\ zbse - zbse\^2 + 
+                            3\ zbe\ \((zbne - zbnw + zbse - zbsw)\) + 
+                            zbnw\ zbsw + zbsw\^2)\) + 
+                      pbe\ \((zbne\^2 - zbnw\^2 + zbne\ \((zbse - 3\ zbw)\) - 
+                            zbnw\ \((zbsw - 3\ zbw)\) + \((zbse - 
+                                  zbsw)\)\ \((zbse + zbsw - 
+                                  3\ zbw)\))\))\)\)\) + \(\(1\/\(zbe - 
+                      zte\)\)\((pbe\ \((zbne\^2 + 
+                          zbne\ \((zbse - 3\ zte)\) + \((zbse - 
+                                ztne)\)\ \((zbse - 3\ zte + 
+                                ztne)\) + \((3\ zte - ztne)\)\ ztse - 
+                          ztse\^2)\) + 
+                    pte\ \((\(-zbne\^2\) - zbne\ zbse - zbse\^2 + ztne\^2 + 
+                          3\ zbe\ \((zbne + zbse - ztne - ztse)\) + 
+                          ztne\ ztse + ztse\^2)\))\)\) + \(\(1\/\(zte - 
+                      ztw\)\)\((ptw\ \((\(-ztne\^2\) + ztnw\^2 - ztne\ ztse - 
+                          ztse\^2 + 3\ zte\ \((ztne - ztnw + ztse - ztsw)\) + 
+                          ztnw\ ztsw + ztsw\^2)\) + 
+                    pte\ \((ztne\^2 - ztnw\^2 + ztne\ \((ztse - 3\ ztw)\) - 
+                          ztnw\ \((ztsw - 3\ ztw)\) + \((ztse - 
+                                ztsw)\)\ \((ztse + ztsw - 
+                                3\ ztw)\))\))\)\) - \(\(1\/\(zbw - 
+                      ztw\)\)\((ptw\ \((\(-zbnw\^2\) - zbnw\ zbsw - zbsw\^2 + 
+                          3\ zbnw\ zbw + 3\ zbsw\ zbw - 3\ zbw\ ztnw + 
+                          ztnw\^2 - 3\ zbw\ ztsw + ztnw\ ztsw + ztsw\^2)\) + 
+                    pbw\ \((zbnw\^2 + zbnw\ zbsw + zbsw\^2 - ztnw\^2 - 
+                          ztnw\ ztsw - ztsw\^2 - 
+                          3\ \((zbnw + zbsw - ztnw - 
+                                ztsw)\)\ ztw)\))\)\))\))\)/\((\((lne - 
+                lnw)\)\ rho\ \((rlns\ \((zbne + zbnw + 2\ zbse + 2\ zbsw - 
+                      ztne - ztnw - 2\ ztse - 2\ ztsw)\) + 
+                rlnn\ \((2\ zbne + 2\ zbnw + zbse + zbsw - 2\ ztne - 
+                      2\ ztnw - ztse - ztsw)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(zbzonal\  = \ 
+      pgradlon[rho, rlt, rlns, rlnn, lnw, lne, lts, ltn, zbs, zbs, zbn, zbn, 
+        ztsw, ztse, ztnw, ztne, zb, zb, ztw, zte, pbw, pbe, ptw, 
+        pte]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\((12\ \((\(\(1\/\(6\ \((zb - zte)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((pbe\ \((zbn\^2 + 
+                              zbn\ \((zbs - 3\ zte)\) + \((zbs - 
+                                    ztne)\)\ \((zbs - 3\ zte + 
+                                    ztne)\) + \((3\ zte - ztne)\)\ ztse - 
+                              ztse\^2)\) + 
+                        pte\ \((\(-zbn\^2\) - zbn\ zbs - zbs\^2 + ztne\^2 + 
+                              3\ zb\ \((zbn + zbs - ztne - ztse)\) + 
+                              ztne\ ztse + 
+                              ztse\^2)\))\))\)\) + \(\(1\/\(6\ \((zte - 
+                          ztw)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((ptw\ \((\(-ztne\^2\) + ztnw\^2 - 
+                              ztne\ ztse - ztse\^2 + 
+                              3\ zte\ \((ztne - ztnw + ztse - ztsw)\) + 
+                              ztnw\ ztsw + ztsw\^2)\) + 
+                        pte\ \((ztne\^2 - ztnw\^2 + 
+                              ztne\ \((ztse - 3\ ztw)\) - 
+                              ztnw\ \((ztsw - 3\ ztw)\) + \((ztse - 
+                                    ztsw)\)\ \((ztse + ztsw - 
+                                    3\ ztw)\))\))\))\)\) - \(\(1\/\(6\ \((zb \
+- ztw)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((ptw\ \((\(-zbn\^2\) - zbn\ zbs - 
+                              zbs\^2 + ztnw\^2 + 
+                              3\ zb\ \((zbn + zbs - ztnw - ztsw)\) + 
+                              ztnw\ ztsw + ztsw\^2)\) + 
+                        pbw\ \((zbn\^2 + zbn\ zbs + zbs\^2 - ztnw\^2 - 
+                              ztnw\ ztsw - ztsw\^2 - 
+                              3\ \((zbn + zbs - ztnw - 
+                                    ztsw)\)\ ztw)\))\))\)\))\))\)/\((\((lne - 
+                lnw)\)\ \((ltn - 
+                lts)\)\ rho\ rlt\ \((rlns\ \((2\ zbn + 4\ zbs - ztne - ztnw - 
+                      2\ ztse - 2\ ztsw)\) + 
+                rlnn\ \((4\ zbn + 2\ zbs - 2\ ztne - 2\ ztnw - ztse - 
+                      ztsw)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[%]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(Simplify::"time"\), \(\(:\)\(\ \)\), "\<\"Time spent on a \
+transformation exceeded \\!\\(300\\) seconds, and the transformation was \
+aborted. Increasing the value of TimeConstraint option may improve the result \
+of simplification. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Simplify::time\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\((2\ \((\(\(1\/\(zb - 
+                      zte\)\)\((pbe\ \((zbn\^2 + 
+                          zbn\ \((zbs - 3\ zte)\) + \((zbs - 
+                                ztne)\)\ \((zbs - 3\ zte + 
+                                ztne)\) + \((3\ zte - ztne)\)\ ztse - 
+                          ztse\^2)\) + 
+                    pte\ \((\(-zbn\^2\) - zbn\ zbs - zbs\^2 + ztne\^2 + 
+                          3\ zb\ \((zbn + zbs - ztne - ztse)\) + ztne\ ztse + 
+                          ztse\^2)\))\)\) + \(\(1\/\(zte - 
+                      ztw\)\)\((ptw\ \((\(-ztne\^2\) + ztnw\^2 - ztne\ ztse - 
+                          ztse\^2 + 3\ zte\ \((ztne - ztnw + ztse - ztsw)\) + 
+                          ztnw\ ztsw + ztsw\^2)\) + 
+                    pte\ \((ztne\^2 - ztnw\^2 + ztne\ \((ztse - 3\ ztw)\) - 
+                          ztnw\ \((ztsw - 3\ ztw)\) + \((ztse - 
+                                ztsw)\)\ \((ztse + ztsw - 
+                                3\ ztw)\))\))\)\) - \(\(1\/\(zb - 
+                      ztw\)\)\((ptw\ \((\(-zbn\^2\) - zbn\ zbs - zbs\^2 + 
+                          ztnw\^2 + 3\ zb\ \((zbn + zbs - ztnw - ztsw)\) + 
+                          ztnw\ ztsw + ztsw\^2)\) + 
+                    pbw\ \((zbn\^2 + zbn\ zbs + zbs\^2 - ztnw\^2 - 
+                          ztnw\ ztsw - ztsw\^2 - 
+                          3\ \((zbn + zbs - ztnw - 
+                                ztsw)\)\ ztw)\))\)\))\))\)/\((\((lne - 
+                lnw)\)\ rho\ \((rlns\ \((2\ zbn + 4\ zbs - ztne - ztnw - 
+                      2\ ztse - 2\ ztsw)\) + 
+                rlnn\ \((4\ zbn + 2\ zbs - 2\ ztne - 2\ ztnw - ztse - 
+                      ztsw)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(ztzonal\  = \ \ pgradlon[rho, rlt, rlns, rlnn, lnw, lne, lts, ltn, 
+        zbsw, zbse, zbnw, zbne, zts, zts, ztn, ztn, zbw, zbe, zt, zt, pbw, 
+        pbe, ptw, pte]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell1"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(ztzonal\\)\\\" is similar to existing symbol \
+\\\"\\!\\(zbzonal\\)\\\". \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell1\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\((12\ \((\(-\(\(1\/\(6\ \((zbe - zbw)\)\)\)\((\((ltn - 
+                          lts)\)\ rlt\ \((pbw\ \((\(-zbne\^2\) + zbnw\^2 - 
+                                zbne\ zbse - zbse\^2 + 
+                                3\ zbe\ \((zbne - zbnw + zbse - zbsw)\) + 
+                                zbnw\ zbsw + zbsw\^2)\) + 
+                          pbe\ \((zbne\^2 - zbnw\^2 + 
+                                zbne\ \((zbse - 3\ zbw)\) - 
+                                zbnw\ \((zbsw - 3\ zbw)\) + \((zbse - 
+                                      zbsw)\)\ \((zbse + zbsw - 
+                                      3\ zbw)\))\))\))\)\)\) + \(\(1\/\(6\ \
+\((zbe - zt)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((pbe\ \((zbne\^2 + 
+                              zbne\ \((zbse - 3\ zt)\) + \((zbse - 
+                                    ztn)\)\ \((zbse - 3\ zt + 
+                                    ztn)\) + \((3\ zt - ztn)\)\ zts - 
+                              zts\^2)\) + 
+                        pte\ \((\(-zbne\^2\) - zbne\ zbse - zbse\^2 + 
+                              ztn\^2 + 
+                              3\ zbe\ \((zbne + zbse - ztn - zts)\) + 
+                              ztn\ zts + 
+                              zts\^2)\))\))\)\) - \(\(1\/\(6\ \((zbw - 
+                          zt)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((pbw\ \((zbnw\^2 + 
+                              zbnw\ \((zbsw - 3\ zt)\) + \((zbsw - 
+                                    ztn)\)\ \((zbsw - 3\ zt + 
+                                    ztn)\) + \((3\ zt - ztn)\)\ zts - 
+                              zts\^2)\) + 
+                        ptw\ \((\(-zbnw\^2\) - zbnw\ zbsw - zbsw\^2 + 
+                              3\ zbnw\ zbw + 3\ zbsw\ zbw - 3\ zbw\ ztn + 
+                              ztn\^2 - 3\ zbw\ zts + ztn\ zts + 
+                              zts\^2)\))\))\)\))\))\)/\((\((lne - 
+                lnw)\)\ \((ltn - 
+                lts)\)\ rho\ rlt\ \((rlns\ \((zbne + zbnw + 
+                      2\ \((zbse + zbsw - ztn - 2\ zts)\))\) + 
+                rlnn\ \((2\ zbne + 2\ zbnw + zbse + zbsw - 4\ ztn - 
+                      2\ zts)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[%]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\((2\ \((\(-\(\(1\/\(zbe - 
+                        zbw\)\)\((pbw\ \((\(-zbne\^2\) + zbnw\^2 - 
+                            zbne\ zbse - zbse\^2 + 
+                            3\ zbe\ \((zbne - zbnw + zbse - zbsw)\) + 
+                            zbnw\ zbsw + zbsw\^2)\) + 
+                      pbe\ \((zbne\^2 - zbnw\^2 + zbne\ \((zbse - 3\ zbw)\) - 
+                            zbnw\ \((zbsw - 3\ zbw)\) + \((zbse - 
+                                  zbsw)\)\ \((zbse + zbsw - 
+                                  3\ zbw)\))\))\)\)\) + \(\(1\/\(zbe - 
+                      zt\)\)\((pbe\ \((zbne\^2 + 
+                          zbne\ \((zbse - 3\ zt)\) + \((zbse - 
+                                ztn)\)\ \((zbse - 3\ zt + ztn)\) + \((3\ zt - 
+                                ztn)\)\ zts - zts\^2)\) + 
+                    pte\ \((\(-zbne\^2\) - zbne\ zbse - zbse\^2 + ztn\^2 + 
+                          3\ zbe\ \((zbne + zbse - ztn - zts)\) + ztn\ zts + 
+                          zts\^2)\))\)\) - \(\(1\/\(zbw - 
+                      zt\)\)\((pbw\ \((zbnw\^2 + 
+                          zbnw\ \((zbsw - 3\ zt)\) + \((zbsw - 
+                                ztn)\)\ \((zbsw - 3\ zt + ztn)\) + \((3\ zt - 
+                                ztn)\)\ zts - zts\^2)\) + 
+                    ptw\ \((\(-zbnw\^2\) - zbnw\ zbsw - zbsw\^2 + 
+                          3\ zbnw\ zbw + 3\ zbsw\ zbw - 3\ zbw\ ztn + 
+                          ztn\^2 - 3\ zbw\ zts + ztn\ zts + 
+                          zts\^2)\))\)\))\))\)/\((\((lne - 
+                lnw)\)\ rho\ \((rlns\ \((zbne + zbnw + 
+                      2\ \((zbse + zbsw - ztn - 2\ zts)\))\) + 
+                rlnn\ \((2\ zbne + 2\ zbnw + zbse + zbsw - 4\ ztn - 
+                      2\ zts)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(zzonal\  = \ 
+      pgradlon[rho, rlt, rlns, rlnn, lnw, lne, lts, ltn, zbs, zbs, zbn, zbn, 
+        zts, zts, ztn, ztn, zb, zb, zt, zt, pbw, pbe, ptw, pte]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(General::"spell"\), \(\(:\)\(\ \)\), "\<\"Possible spelling \
+error: new symbol name \\\"\\!\\(zzonal\\)\\\" is similar to existing symbols \
+\\!\\({zbzonal, ztzonal}\\). \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"General::spell\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\((6\ \((\(\(1\/\(6\ \((zb - zt)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((pbe\ \((zbn\^2 + 
+                              zbn\ \((zbs - 3\ zt)\) + \((zbs - 
+                                    ztn)\)\ \((zbs - 3\ zt + 
+                                    ztn)\) + \((3\ zt - ztn)\)\ zts - 
+                              zts\^2)\) + 
+                        pte\ \((\(-zbn\^2\) - zbn\ zbs - zbs\^2 + ztn\^2 + 
+                              3\ zb\ \((zbn + zbs - ztn - zts)\) + ztn\ zts + 
+                              zts\^2)\))\))\)\) - \(\(1\/\(6\ \((zb - 
+                          zt)\)\)\)\((\((ltn - 
+                        lts)\)\ rlt\ \((pbw\ \((zbn\^2 + 
+                              zbn\ \((zbs - 3\ zt)\) + \((zbs - 
+                                    ztn)\)\ \((zbs - 3\ zt + 
+                                    ztn)\) + \((3\ zt - ztn)\)\ zts - 
+                              zts\^2)\) + 
+                        ptw\ \((\(-zbn\^2\) - zbn\ zbs - zbs\^2 + ztn\^2 + 
+                              3\ zb\ \((zbn + zbs - ztn - zts)\) + ztn\ zts + 
+                              zts\^2)\))\))\)\))\))\)/\((\((lne - 
+                lnw)\)\ \((ltn - 
+                lts)\)\ rho\ rlt\ \((rlns\ \((zbn + 2\ zbs - ztn - 
+                      2\ zts)\) + 
+                rlnn\ \((2\ zbn + zbs - 2\ ztn - zts)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[%]\)], "Input"],
+
+Cell[BoxData[
+    \(\((pte\ \((zbn\^2 + zbn\ zbs + zbs\^2 - ztn\^2 - 
+                3\ zb\ \((zbn + zbs - ztn - zts)\) - ztn\ zts - 
+                zts\^2)\) - \((pbe - pbw)\)\ \((zbn\^2 + zbs\^2 + 
+                zbn\ \((zbs - 3\ zt)\) - 3\ zbs\ zt + 3\ zt\ ztn - ztn\^2 + 
+                3\ zt\ zts - ztn\ zts - zts\^2)\) + 
+          ptw\ \((\(-zbn\^2\) - zbn\ zbs - zbs\^2 + ztn\^2 + 
+                3\ zb\ \((zbn + zbs - ztn - zts)\) + ztn\ zts + 
+                zts\^2)\))\)/\((\((lne - lnw)\)\ rho\ \((zb - 
+              zt)\)\ \((rlns\ \((zbn + 2\ zbs - ztn - 2\ zts)\) + 
+              rlnn\ \((2\ zbn + zbs - 2\ ztn - zts)\))\))\)\)], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(\ \)], "Input"]
+},
+FrontEndVersion->"5.2 for X",
+ScreenRectangle->{{0, 1440}, {0, 900}},
+WindowToolbars->"EditBar",
+WindowSize->{721, 825},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 118, 2, 27, "Input"],
+Cell[1875, 55, 129, 2, 27, "Input"],
+Cell[2007, 59, 271, 5, 59, "Input"],
+Cell[2281, 66, 267, 5, 59, "Input"],
+Cell[2551, 73, 341, 5, 59, "Input"],
+Cell[2895, 80, 425, 8, 91, "Input"],
+Cell[3323, 90, 745, 12, 155, "Input"],
+
+Cell[CellGroupData[{
+Cell[4093, 106, 388, 7, 59, "Input"],
+Cell[4484, 115, 57, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4578, 121, 236, 5, 59, "Input"],
+Cell[4817, 128, 278, 4, 37, "Message"],
+Cell[5098, 134, 278, 4, 37, "Message"],
+Cell[5379, 140, 219, 3, 46, "Output"],
+Cell[5601, 145, 125, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5763, 152, 210, 4, 43, "Input"],
+Cell[5976, 158, 2837, 45, 393, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[8850, 208, 44, 1, 27, "Input"],
+Cell[8897, 211, 2318, 35, 348, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11252, 251, 204, 4, 43, "Input"],
+Cell[11459, 257, 278, 4, 37, "Message"],
+Cell[11740, 263, 2099, 34, 301, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13876, 302, 44, 1, 27, "Input"],
+Cell[13923, 305, 426, 6, 46, "Message"],
+Cell[14352, 313, 1713, 27, 276, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[16102, 345, 199, 3, 43, "Input"],
+Cell[16304, 350, 362, 5, 33, "Message"],
+Cell[16669, 357, 278, 4, 37, "Message"],
+Cell[16950, 363, 2221, 36, 304, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[19208, 404, 44, 1, 27, "Input"],
+Cell[19255, 407, 1798, 28, 274, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[21090, 440, 188, 3, 43, "Input"],
+Cell[21281, 445, 363, 5, 33, "Message"],
+Cell[21647, 452, 278, 4, 37, "Message"],
+Cell[21928, 458, 278, 4, 37, "Message"],
+Cell[22209, 464, 1386, 22, 210, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[23632, 491, 44, 1, 27, "Input"],
+Cell[23679, 494, 662, 10, 83, "Output"]
+}, Open  ]],
+Cell[24356, 507, 35, 1, 27, "Input"]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

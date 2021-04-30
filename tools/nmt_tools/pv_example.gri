@@ -1,0 +1,43 @@
+###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Greetings! This GRI command script was generated (at your request) by pdfplot.
+### You can learn about the GRI language at: http://gri.sourceforge.net/index.php
+### For questions regarding pdfplot or this script, contact: mherman@nmt.edu
+###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### General Formatting ###
+set clip on
+set missing value 9.90990e+28
+open "pv_example.nc" netCDF
+set font size 12
+..xmargin.. = 3.000000
+..ymargin.. = 2.500000
+set x name "Longitude ($\circ$)"
+set y name "Latitude ($\circ$)"
+set x axis -1.800180000e+02 1.743924375e+02 7.088208750e+01
+set y axis -5.000500000e+01 4.655637865e+01 1.931227573e+01
+set x size 15.000000
+set y size 15.000000
+set x format %.2f
+set y format %.2f
+
+### Plot a Color Gradient Image ###
+set image range -1.634160981e-06 1.548846285e-06
+set image colorscale hsb 0.666 1.000 1.000 -1.634160981e-06 hsb 0.000 1.000 1.000 1.548846285e-06 increment 6.366014532e-09
+read grid x = "lon_pv2"
+read grid y = "lat_pv2"
+read grid data = "pv2"
+convert grid to image size 300 300 box -1.800180000e+02 -5.000500000e+01 1.743924375e+02 4.655637865e+01
+draw image
+
+### Make a Palette Box ###
+set y format %.2e
+set font size 10
+draw image palette axisright left -1.63e-06 right 1.55e-06 increment 3.98e-07 box 19.200000 2.500000 20.200000 17.500000
+set font size 12
+set y format %.2f
+
+### Wrap It Up ###
+set color black
+set font size 14
+draw title "Potential Vorticity q"
+close

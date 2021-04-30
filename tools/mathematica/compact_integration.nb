@@ -1,0 +1,265 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6586,        187]*)
+(*NotebookOutlinePosition[      7215,        209]*)
+(*  CellTagsIndexPosition[      7171,        205]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(mat1\  = \ {{1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, \(-1\), \(-1\)}, {1, 1, 1, 
+          1, 0, \(-dx21\)}, {\(-2\) dx10, 0, 2  dx21, 2  dx31, 
+          0, \(-dx21^2\)}, {3  dx10^2, 0, 3  dx21^2, 3  dx31^2, 
+          0, \(-dx21^3\)}, {\(-4\) dx10^3, 0, 4  dx21^3, 4  dx31^3, 
+          0, \(-dx21^4\)}}\)], "Input"],
+
+Cell[BoxData[
+    \({{1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, \(-1\), \(-1\)}, {1, 1, 1, 1, 
+        0, \(-dx21\)}, {\(-2\)\ dx10, 0, 2\ dx21, 2\ dx31, 
+        0, \(-dx21\^2\)}, {3\ dx10\^2, 0, 3\ dx21\^2, 3\ dx31\^2, 
+        0, \(-dx21\^3\)}, {\(-4\)\ dx10\^3, 0, 4\ dx21\^3, 4\ dx31\^3, 
+        0, \(-dx21\^4\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(A1\  = {a10, a11, a12, a13, b11, b12}\)], "Input"],
+
+Cell[BoxData[
+    \({a10, a11, a12, a13, b11, b12}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(r = {1, 0, 0, 0, 0, 0}\)], "Input"],
+
+Cell[BoxData[
+    \({1, 0, 0, 0, 0, 0}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[mat1 . A1\  == \ r, A1]\)], "Input"],
+
+Cell[BoxData[
+    \({{b11 \[Rule] \(-\(1\/dx21\)\), 
+        a11 \[Rule] \(-\(\(2\ dx10\ dx21 + dx21\^2 - 6\ dx10\ dx31 - 
+                  2\ dx21\ dx31\)\/\(12\ dx10\ dx31\)\)\), 
+        a10 \[Rule] \(-\(\(\(-dx21\^3\) + 
+                  2\ dx21\^2\ dx31\)\/\(12\ dx10\ \((dx10 + 
+                      dx21)\)\ \((dx10 + dx31)\)\)\)\), 
+        a12 \[Rule] \(-\(\(\(-4\)\ dx10\ dx21 - 3\ dx21\^2 + 6\ dx10\ dx31 + 
+                  4\ dx21\ dx31\)\/\(12\ \((dx10 + dx21)\)\ \((dx21 - 
+                      dx31)\)\)\)\), 
+        a13 \[Rule] \(dx21\^2\ \((2\ dx10 + dx21)\)\)\/\(12\ \((dx21 - \
+dx31)\)\ dx31\ \((dx10 + dx31)\)\), b12 \[Rule] 1\/dx21}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(Simplify[%]\)\)\)], "Input"],
+
+Cell[BoxData[
+    \({{b11 \[Rule] \(-\(1\/dx21\)\), 
+        a11 \[Rule] \(-\(\(2\ dx10\ dx21 + dx21\^2 - 6\ dx10\ dx31 - 
+                  2\ dx21\ dx31\)\/\(12\ dx10\ dx31\)\)\), 
+        a10 \[Rule] \(dx21\^2\ \((dx21 - 2\ dx31)\)\)\/\(12\ dx10\ \((dx10 + \
+dx21)\)\ \((dx10 + dx31)\)\), 
+        a12 \[Rule] \(4\ dx10\ dx21 + 3\ dx21\^2 - 6\ dx10\ dx31 - 4\ dx21\ \
+dx31\)\/\(12\ \((dx10 + dx21)\)\ \((dx21 - dx31)\)\), 
+        a13 \[Rule] \(dx21\^2\ \((2\ dx10 + dx21)\)\)\/\(12\ \((dx21 - \
+dx31)\)\ dx31\ \((dx10 + dx31)\)\), b12 \[Rule] 1\/dx21}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(mat2 = {{1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, \(-1\), \(-1\)}, {1, 1, 1, 1, 
+          dx21, 0}, {\(-2\) dx20, \(-2\) dx21, 0, 2  dx32, \(-dx21^2\), 
+          0}, {3  dx20^2, 3  dx21^2, 0, 3  dx32^2, dx21^3, 
+          0}, {\(-4\) dx20^3, \(-4\) dx21^3, 0, 4  dx32^3, \(-dx21^4\), 
+          0}}\)], "Input"],
+
+Cell[BoxData[
+    \({{1, 1, 1, 1, 0, 0}, {0, 0, 0, 0, \(-1\), \(-1\)}, {1, 1, 1, 1, dx21, 
+        0}, {\(-2\)\ dx20, \(-2\)\ dx21, 0, 2\ dx32, \(-dx21\^2\), 
+        0}, {3\ dx20\^2, 3\ dx21\^2, 0, 3\ dx32\^2, dx21\^3, 
+        0}, {\(-4\)\ dx20\^3, \(-4\)\ dx21\^3, 0, 4\ dx32\^3, \(-dx21\^4\), 
+        0}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(A2 = {a20, a21, a22, a23, b21, b22}\)], "Input"],
+
+Cell[BoxData[
+    \({a20, a21, a22, a23, b21, b22}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Solve[mat2 . A2 \[Equal] r, A2]\)], "Input"],
+
+Cell[BoxData[
+    \({{b22 \[Rule] 1\/dx21, 
+        a22 \[Rule] \(-\(\(\(-2\)\ dx20\ dx21 + dx21\^2 - 6\ dx20\ dx32 + 
+                  2\ dx21\ dx32\)\/\(12\ dx20\ dx32\)\)\), 
+        a20 \[Rule] \(-\(\(dx21\^3 + 
+                  2\ dx21\^2\ dx32\)\/\(12\ dx20\ \((dx20 - 
+                      dx21)\)\ \((dx20 + dx32)\)\)\)\), 
+        a21 \[Rule] \(-\(\(4\ dx20\ dx21 - 3\ dx21\^2 + 6\ dx20\ dx32 - 
+                  4\ dx21\ dx32\)\/\(12\ \((\(-dx20\) + dx21)\)\ \((dx21 + 
+                      dx32)\)\)\)\), 
+        a23 \[Rule] \(dx21\^2\ \((\(-2\)\ dx20 + dx21)\)\)\/\(12\ dx32\ \
+\((dx20 + dx32)\)\ \((dx21 + dx32)\)\), 
+        b21 \[Rule] \(-\(1\/dx21\)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[%]\)], "Input"],
+
+Cell[BoxData[
+    \({{b22 \[Rule] 1\/dx21, 
+        a22 \[Rule] \(\(-dx21\)\ \((dx21 + 2\ dx32)\) + 2\ dx20\ \((dx21 + 3\ \
+dx32)\)\)\/\(12\ dx20\ dx32\), 
+        a20 \[Rule] \(-\(\(dx21\^2\ \((dx21 + 
+                      2\ dx32)\)\)\/\(12\ dx20\ \((dx20 - dx21)\)\ \((dx20 + 
+                      dx32)\)\)\)\), 
+        a21 \[Rule] \(4\ dx20\ dx21 - 3\ dx21\^2 + 6\ dx20\ dx32 - 4\ dx21\ \
+dx32\)\/\(12\ \((dx20 - dx21)\)\ \((dx21 + dx32)\)\), 
+        a23 \[Rule] \(dx21\^2\ \((\(-2\)\ dx20 + dx21)\)\)\/\(12\ dx32\ \
+\((dx20 + dx32)\)\ \((dx21 + dx32)\)\), 
+        b21 \[Rule] \(-\(1\/dx21\)\)}}\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.2 for X",
+ScreenRectangle->{{0, 1440}, {0, 900}},
+WindowSize->{767, 825},
+WindowMargins->{{270, Automatic}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 330, 5, 59, "Input"],
+Cell[2109, 60, 323, 5, 63, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2469, 70, 70, 1, 27, "Input"],
+Cell[2542, 73, 64, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2643, 79, 55, 1, 27, "Input"],
+Cell[2701, 82, 52, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2790, 88, 62, 1, 27, "Input"],
+Cell[2855, 91, 675, 11, 169, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[3567, 107, 75, 1, 43, "Input"],
+Cell[3645, 110, 570, 9, 128, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4252, 124, 324, 5, 59, "Input"],
+Cell[4579, 131, 323, 5, 63, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4939, 141, 68, 1, 27, "Input"],
+Cell[5010, 144, 64, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5111, 150, 64, 1, 27, "Input"],
+Cell[5178, 153, 689, 12, 128, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5904, 170, 44, 1, 27, "Input"],
+Cell[5951, 173, 619, 11, 126, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

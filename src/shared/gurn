@@ -1,0 +1,549 @@
+735,746d734
+<   var.species[C_2H_2_INDEX].phase[VAPOR ].on = TRUE;
+<   var.species[C_2H_2_INDEX].phase[ICE   ].on = FALSE;
+<   var.species[C_2H_2_INDEX].phase[LIQUID].on = FALSE;
+<   var.species[C_2H_2_INDEX].phase[RAIN  ].on = FALSE;
+<   var.species[C_2H_2_INDEX].phase[SNOW  ].on = FALSE;
+< 
+<   var.species[C_2H_6_INDEX].phase[VAPOR ].on = TRUE;
+<   var.species[C_2H_6_INDEX].phase[ICE   ].on = FALSE;
+<   var.species[C_2H_6_INDEX].phase[LIQUID].on = FALSE;
+<   var.species[C_2H_6_INDEX].phase[RAIN  ].on = FALSE;
+<   var.species[C_2H_6_INDEX].phase[SNOW  ].on = FALSE;
+< 
+762a751,780
+> 
+>     var.species[CH_4_INDEX].phase[VAPOR ].on = TRUE;
+>     var.species[CH_4_INDEX].phase[ICE   ].on = TRUE;
+>     var.species[CH_4_INDEX].phase[LIQUID].on = TRUE;
+>     var.species[CH_4_INDEX].phase[RAIN  ].on = TRUE;
+>     var.species[CH_4_INDEX].phase[SNOW  ].on = TRUE;
+> 
+>     var.species[C_2H_2_INDEX].phase[VAPOR ].on = TRUE;
+>     var.species[C_2H_2_INDEX].phase[ICE   ].on = FALSE;
+>     var.species[C_2H_2_INDEX].phase[LIQUID].on = FALSE;
+>     var.species[C_2H_2_INDEX].phase[RAIN  ].on = FALSE;
+>     var.species[C_2H_2_INDEX].phase[SNOW  ].on = FALSE;
+> 
+>     var.species[C_2H_6_INDEX].phase[VAPOR ].on = TRUE;
+>     var.species[C_2H_6_INDEX].phase[ICE   ].on = FALSE;
+>     var.species[C_2H_6_INDEX].phase[LIQUID].on = FALSE;
+>     var.species[C_2H_6_INDEX].phase[RAIN  ].on = FALSE;
+>     var.species[C_2H_6_INDEX].phase[SNOW  ].on = FALSE;
+> 
+>     var.species[H_2S_INDEX].phase[VAPOR ].on = TRUE;
+>     var.species[H_2S_INDEX].phase[ICE   ].on = TRUE;
+>     var.species[H_2S_INDEX].phase[LIQUID].on = TRUE;
+>     var.species[H_2S_INDEX].phase[RAIN  ].on = TRUE;
+>     var.species[H_2S_INDEX].phase[SNOW  ].on = TRUE;
+> 
+>     var.species[NH_4SH_INDEX].phase[VAPOR ].on = TRUE;
+>     var.species[NH_4SH_INDEX].phase[ICE   ].on = TRUE;
+>     var.species[NH_4SH_INDEX].phase[LIQUID].on = TRUE;
+>     var.species[NH_4SH_INDEX].phase[RAIN  ].on = TRUE;
+>     var.species[NH_4SH_INDEX].phase[SNOW  ].on = TRUE;
+787c805
+<          * The appropriate phases for the chosen physics package should already be turned on.
+---
+>          * The appropriate phases for the chosen physics package should already be turned on by epic_initial.c.
+2233c2251,2257
+<         if (species_index >= FIRST_SPECIES && species_index <= LAST_SPECIES) return Q(species_index,phase_index,K,J,I);
+---
+>         if (species_index >= FIRST_SPECIES && species_index <= LAST_SPECIES) {
+>           return Q(species_index,phase_index,K,J,I);
+>         }
+>         else {
+>           sprintf(Message,"need implementation for speices_index=%d",species_index);
+>           epic_error(dbmsname,Message);
+>         }
+2248c2272
+<           sprintf(Message,"kk=%d, index=%d not recognized",kk,species_index);
+---
+>           sprintf(Message,"kk=%d; species_index=%d not recognized",kk,species_index);
+2264c2288
+<           sprintf(Message,"kk=%d, %d not recognzied",kk,species_index);
+---
+>           sprintf(Message,"kk=%d; species_index=%d not recognzied",kk,species_index);
+7391a7416,7425
+> 
+> #if defined(EPIC_MPI)
+> #  if EPIC_PRECISION == DOUBLE_PRECISION
+>      MPI_Datatype
+>        float_type = MPI_DOUBLE;
+> #  else
+>      MPI_Datatype
+>        float_type = MPI_FLOAT;
+> #  endif
+> #endif  
+7418a7453,7456
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(&ndat,1,MPI_INT,NODE0,para.comm);
+> #endif
+> 
+7424c7462,7463
+<     for (j = 0; j < ndat; j++) {
+---
+>     if (IAMNODE == NODE0) {
+>       for (j = 0; j < ndat; j++) {
+7427c7466
+<       fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+7429c7468
+<       fscanf(u_dat,"%f %f",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%f %f",latdat+j,udat+j);
+7431a7471,7472
+>       }
+>       fclose(u_dat);
+7433c7474,7478
+<     fclose(u_dat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(latdat,ndat,float_type,NODE0,para.comm);
+>     MPI_Bcast(udat,  ndat,float_type,NODE0,para.comm);
+> #endif
+7509a7555,7564
+> 
+> #if defined(EPIC_MPI)
+> #  if EPIC_PRECISION == DOUBLE_PRECISION
+>      MPI_Datatype
+>        float_type = MPI_DOUBLE;
+> #  else
+>      MPI_Datatype
+>        float_type = MPI_FLOAT;
+> #  endif
+> #endif  
+7520,7531c7575,7589
+<     /* Look in local directory first. */
+<     u_dat = fopen("./u_vs_lat.jupiter","r");
+<     if (!u_dat) {
+<       u_dat = fopen(EPIC4_PATH"/data/jupiter/u_vs_lat.jupiter","r");
+<     }
+<     if (!u_dat) {
+<       sprintf(Message,"Failed to open file %s",EPIC4_PATH"/data/jupiter/u_vs_lat.jupiter");
+<       epic_error(dbmsname,Message);
+<     }
+<     /* Skip 6-line header. */
+<     for (j = 0; j < 6; j++) {
+<       fgets(header,N_STR,u_dat);
+---
+>     if (IAMNODE == NODE0) {
+>       /* Look in local directory first. */
+>       u_dat = fopen("./u_vs_lat.jupiter","r");
+>       if (!u_dat) {
+>         u_dat = fopen(EPIC4_PATH"/data/jupiter/u_vs_lat.jupiter","r");
+>       }
+>       if (!u_dat) {
+>         sprintf(Message,"Failed to open file %s",EPIC4_PATH"/data/jupiter/u_vs_lat.jupiter");
+>         epic_error(dbmsname,Message);
+>       }
+>       /* Skip 6-line header. */
+>       for (j = 0; j < 6; j++) {
+>         fgets(header,N_STR,u_dat);
+>       }
+>       fscanf(u_dat,"%d",&ndat);
+7533c7591,7594
+<     fscanf(u_dat,"%d",&ndat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(&ndat,1,MPI_INT,NODE0,para.comm);
+> #endif
+7540c7601,7602
+<     for (j = 0; j < ndat; j++) {
+---
+>     if (IAMNODE == NODE0) {
+>       for (j = 0; j < ndat; j++) {
+7543c7605
+<       fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+7545c7607
+<       fscanf(u_dat,"%f %f",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%f %f",latdat+j,udat+j);
+7547a7610,7611
+>       }
+>       fclose(u_dat);
+7549c7613,7617
+<     fclose(u_dat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(latdat,ndat,float_type,NODE0,para.comm);
+>     MPI_Bcast(udat,  ndat,float_type,NODE0,para.comm);
+> #endif
+7599a7668,7678
+> 
+> #if defined(EPIC_MPI)
+> #  if EPIC_PRECISION == DOUBLE_PRECISION
+>      MPI_Datatype
+>        float_type = MPI_DOUBLE;
+> #  else
+>      MPI_Datatype
+>        float_type = MPI_FLOAT;
+> #  endif
+> #endif  
+>     
+7609,7620c7688,7702
+<     /* Look in local directory first. */
+<     u_dat = fopen("./u_vs_lat.saturn","r");
+<     if (!u_dat) {
+<       u_dat = fopen(EPIC4_PATH"/data/saturn/u_vs_lat.saturn","r");
+<     }
+<     if (!u_dat) {
+<       sprintf(Message,"Failed to open file %s",EPIC4_PATH"/data/saturn/u_vs_lat.saturn");
+<       epic_error(dbmsname,Message);
+<     }
+<     /* Skip 6-line header. */
+<     for (j = 0; j < 6; j++) {
+<       fgets(header,N_STR,u_dat);
+---
+>     if (IAMNODE == NODE0) {
+>       /* Look in local directory first. */
+>       u_dat = fopen("./u_vs_lat.saturn","r");
+>       if (!u_dat) {
+>         u_dat = fopen(EPIC4_PATH"/data/saturn/u_vs_lat.saturn","r");
+>       }
+>       if (!u_dat) {
+>         sprintf(Message,"Failed to open file %s",EPIC4_PATH"/data/saturn/u_vs_lat.saturn");
+>         epic_error(dbmsname,Message);
+>       }
+>       /* Skip 6-line header. */
+>       for (j = 0; j < 6; j++) {
+>         fgets(header,N_STR,u_dat);
+>       }
+>       fscanf(u_dat,"%d",&ndat);
+7622c7704,7707
+<     fscanf(u_dat,"%d",&ndat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(&ndat,1,MPI_INT,NODE0,para.comm);
+> #endif
+7629c7714,7715
+<     for (j = 0; j < ndat; j++) {
+---
+>     if (IAMNODE == NODE0) {
+>       for (j = 0; j < ndat; j++) {
+7632c7718
+<       fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+7634c7720
+<       fscanf(u_dat,"%f %f",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%f %f",latdat+j,udat+j);
+7636a7723,7724
+>       }
+>       fclose(u_dat);
+7638c7726,7730
+<     fclose(u_dat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(latdat,ndat,float_type,NODE0,para.comm);
+>     MPI_Bcast(udat,  ndat,float_type,NODE0,para.comm);
+> #endif
+7717a7810,7820
+> 
+> #if defined(EPIC_MPI)
+> #  if EPIC_PRECISION == DOUBLE_PRECISION
+>      MPI_Datatype
+>       float_type = MPI_DOUBLE;
+> #  else
+>     MPI_Datatype
+>       float_type = MPI_FLOAT;
+> #  endif
+> #endif
+> 
+7727,7737c7830,7843
+<     u_dat = fopen("./u_vs_lat.uranus","r");
+<     if (!u_dat) {
+<       u_dat = fopen(EPIC4_PATH"/data/uranus/u_vs_lat.uranus","r");
+<     }
+<     if (!u_dat) {
+<       sprintf(Message,"Failed to open file %s",EPIC4_PATH"/data/uranus/u_vs_lat.uranus");
+<       epic_error(dbmsname,Message);
+<     }
+<     /* Skip 6-line header. */
+<     for (j = 0; j < 6; j++) {
+<       fgets(header,N_STR,u_dat);
+---
+>     if (IAMNODE == NODE0) {
+>       u_dat = fopen("./u_vs_lat.uranus","r");
+>       if (!u_dat) {
+>         u_dat = fopen(EPIC4_PATH"/data/uranus/u_vs_lat.uranus","r");
+>       }
+>       if (!u_dat) {
+>         sprintf(Message,"Failed to open file %s",EPIC4_PATH"/data/uranus/u_vs_lat.uranus");
+>         epic_error(dbmsname,Message);
+>       }
+>       /* Skip 6-line header. */
+>       for (j = 0; j < 6; j++) {
+>         fgets(header,N_STR,u_dat);
+>       }
+>       fscanf(u_dat,"%d",&ndat);
+7739c7845,7848
+<     fscanf(u_dat,"%d",&ndat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(&ndat,1,MPI_INT,NODE0,para.comm);
+> #endif
+7746c7855,7856
+<     for (j = 0; j < ndat; j++) {
+---
+>     if (IAMNODE == NODE0) {
+>       for (j = 0; j < ndat; j++) {
+7749c7859
+<       fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+7751c7861
+<       fscanf(u_dat,"%f %f",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%f %f",latdat+j,udat+j);
+7753a7864,7865
+>       }
+>       fclose(u_dat);
+7755c7867,7871
+<     fclose(u_dat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(latdat,ndat,float_type,NODE0,para.comm);
+>     MPI_Bcast(udat,  ndat,float_type,NODE0,para.comm);
+> #endif
+7804a7921,7931
+> 
+> #if defined(EPIC_MPI)
+> #  if EPIC_PRECISION == DOUBLE_PRECISION
+>      MPI_Datatype
+>        float_type = MPI_DOUBLE;
+> #  else
+>      MPI_Datatype
+>        float_type = MPI_FLOAT;
+> #  endif
+> #endif  
+> 
+7814,7824c7941,7954
+<     u_dat = fopen("./u_vs_lat.neptune","r");
+<     if (!u_dat) {
+<       u_dat = fopen(EPIC4_PATH"/data/neptune/u_vs_lat.neptune","r");
+<     }
+<     if (!u_dat) {
+<       sprintf(Message,"Failed to open file %s",EPIC4_PATH"/data/neptune/u_vs_lat.neptune");
+<       epic_error(dbmsname,Message);
+<     }
+<     /* Skip 6-line header. */
+<     for (j = 0; j < 6; j++) {
+<       fgets(header,N_STR,u_dat);
+---
+>     if (IAMNODE == NODE0) {
+>       u_dat = fopen("./u_vs_lat.neptune","r");
+>       if (!u_dat) {
+>         u_dat = fopen(EPIC4_PATH"/data/neptune/u_vs_lat.neptune","r");
+>       }
+>       if (!u_dat) {
+>         sprintf(Message,"Failed to open file %s",EPIC4_PATH"/data/neptune/u_vs_lat.neptune");
+>         epic_error(dbmsname,Message);
+>       }
+>       /* Skip 6-line header. */
+>       for (j = 0; j < 6; j++) {
+>         fgets(header,N_STR,u_dat);
+>       }
+>       fscanf(u_dat,"%d",&ndat);
+7826c7956,7959
+<     fscanf(u_dat,"%d",&ndat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(&ndat,1,MPI_INT,NODE0,para.comm);
+> #endif
+7833c7966,7967
+<     for (j = 0; j < ndat; j++) {
+---
+>     if (IAMNODE == NODE0) {
+>       for (j = 0; j < ndat; j++) {
+7836c7970
+<       fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%lf %lf",latdat+j,udat+j);
+7838c7972
+<       fscanf(u_dat,"%f %f",latdat+j,udat+j);
+---
+>         fscanf(u_dat,"%f %f",latdat+j,udat+j);
+7840a7975,7976
+>       }
+>       fclose(u_dat);
+7842c7978,7982
+<     fclose(u_dat);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(latdat,ndat,float_type,NODE0,para.comm);
+>     MPI_Bcast(udat,  ndat,float_type,NODE0,para.comm);
+> #endif
+8022a8163,8173
+> 
+> #if defined(EPIC_MPI)
+> #  if EPIC_PRECISION == DOUBLE_PRECISION
+>      MPI_Datatype
+>        float_type = MPI_DOUBLE;
+> #  else
+>      MPI_Datatype
+>        float_type = MPI_FLOAT;
+> #  endif
+> #endif
+> 
+8032,8044c8183,8197
+<     sprintf(infile,EPIC4_PATH"/data/jupiter/u_vs_p.jupiter.GalileoProbe");
+<     u_vs_p = fopen(infile,"r");
+<     if (!u_vs_p) {
+<       sprintf(Message,"Failed to open file %s",infile);
+<       epic_error(dbmsname,Message);
+<     }
+<     for (nn = 0; nn < 7; nn++) {
+<       fgets(header,100,u_vs_p); 
+<     }
+<     /* input number of data points */
+<     fscanf(u_vs_p,"%d",&nup); 
+<     for (nn = 0; nn < 4; nn++) {
+<       fgets(header,100,u_vs_p); 
+---
+>     if (IAMNODE == NODE0) {
+>       sprintf(infile,EPIC4_PATH"/data/jupiter/u_vs_p.jupiter.GalileoProbe");
+>       u_vs_p = fopen(infile,"r");
+>       if (!u_vs_p) {
+>         sprintf(Message,"Failed to open file %s",infile);
+>         epic_error(dbmsname,Message);
+>       }
+>       for (nn = 0; nn < 7; nn++) {
+>         fgets(header,100,u_vs_p); 
+>       }
+>       /* input number of data points */
+>       fscanf(u_vs_p,"%d",&nup); 
+>       for (nn = 0; nn < 4; nn++) {
+>         fgets(header,100,u_vs_p); 
+>       }
+8046a8200,8203
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(&nup,1,MPI_INT,NODE0,para.comm);
+> #endif
+> 
+8052,8053c8209,8211
+<     /* In order of increasing sigmatheta. */
+<     for (nn = nup-1; nn >= 0;  nn--) {
+---
+>     if (IAMNODE == NODE0) { 
+>       /* In order of increasing sigmatheta. */
+>       for (nn = nup-1; nn >= 0;  nn--) {
+8056c8214
+<       fscanf(u_vs_p, "%*lf %*lf %lf %lf",pdat+nn,udat+nn);
+---
+>         fscanf(u_vs_p, "%*lf %*lf %lf %lf",pdat+nn,udat+nn);
+8058c8216
+<       fscanf(u_vs_p, "%*f %*f %f %f",pdat+nn,udat+nn);
+---
+>         fscanf(u_vs_p, "%*f %*f %f %f",pdat+nn,udat+nn);
+8061,8062c8219,8222
+<       /* Convert from bar to Pa. */
+<       pdat[nn] *= 1.e+5;
+---
+>         /* Convert from bar to Pa. */
+>         pdat[nn] *= 1.e+5;
+>       }
+>       fclose(u_vs_p);
+8064c8224,8228
+<     fclose(u_vs_p);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(pdat,nup,float_type,NODE0,para.comm);
+>     MPI_Bcast(udat,nup,float_type,NODE0,para.comm);
+> #endif
+8148a8313,8323
+> 
+> #if defined(EPIC_MPI)
+> #  if EPIC_PRECISION == DOUBLE_PRECISION
+>      MPI_Datatype
+>        float_type = MPI_DOUBLE;
+> #  else
+>      MPI_Datatype
+>        float_type = MPI_FLOAT;
+> #  endif
+> #endif
+> 
+8161,8168c8336,8347
+<     sprintf(infile,EPIC4_PATH"/data/venus/u_vs_p.venus.Pioneer");
+<     u_vs_p = fopen(infile,"r");
+<     if (!u_vs_p) {
+<       sprintf(Message,"Failed to open file %s",infile);
+<       epic_error(dbmsname,Message);
+<     }
+<     for (nn = 0; nn < 6; nn++) {
+<       fgets(header,128,u_vs_p);  
+---
+>     if (IAMNODE == NODE0) {
+>       sprintf(infile,EPIC4_PATH"/data/venus/u_vs_p.venus.Pioneer");
+>       u_vs_p = fopen(infile,"r");
+>       if (!u_vs_p) {
+>         sprintf(Message,"Failed to open file %s",infile);
+>         epic_error(dbmsname,Message);
+>       }
+>       for (nn = 0; nn < 6; nn++) {
+>         fgets(header,128,u_vs_p);  
+>       }
+>       /* input number of data points */
+>       fscanf(u_vs_p,"%d",&nup);  
+8170,8171c8349,8352
+<     /* input number of data points */
+<     fscanf(u_vs_p,"%d",&nup);  
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(&nup,1,MPI_INT,NODE0,para.comm);
+> #endif
+8178,8179c8359,8361
+<     /* In order of increasing sigmatheta. */
+<     for (nn = nup-1; nn >= 0; nn--) { 
+---
+>     if (IAMNODE == NODE0) {
+>       /* In order of increasing sigmatheta. */
+>       for (nn = nup-1; nn >= 0; nn--) { 
+8182c8364
+<       fscanf(u_vs_p,"%lf %lf",pdat+nn,udat+nn);
+---
+>         fscanf(u_vs_p,"%lf %lf",pdat+nn,udat+nn);
+8184c8366,8367
+<       fscanf(u_vs_p,"%f %f",  pdat+nn,udat+nn);
+---
+>         fscanf(u_vs_p,"%f %f",  pdat+nn,udat+nn);
+> 
+8187,8192c8370,8377
+<       /* convert from hPa to Pa */
+<       pdat[nn] *= 100.;
+<       /*
+<        * Spline on -log p.
+<        */
+<       pdat[nn] = -log(pdat[nn]);
+---
+>         /* convert from hPa to Pa */
+>         pdat[nn] *= 100.;
+>         /*
+>          * Spline on -log p.
+>          */
+>         pdat[nn] = -log(pdat[nn]);
+>       }
+>       fclose(u_vs_p);
+8194c8379,8383
+<     fclose(u_vs_p);
+---
+> 
+> #if defined(EPIC_MPI)
+>     MPI_Bcast(pdat,nup,float_type,NODE0,para.comm);
+>     MPI_Bcast(udat,nup,float_type,NODE0,para.comm);
+> #endif

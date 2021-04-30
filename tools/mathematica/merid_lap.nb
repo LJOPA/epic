@@ -1,0 +1,332 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      6992,        226]*)
+(*NotebookOutlinePosition[      7621,        248]*)
+(*  CellTagsIndexPosition[      7577,        244]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+    \(M\  = \ {{LegendreP[0, Sin[l1]], LegendreP[1, Sin[l1]], 
+          LegendreP[2, Sin[l1]]}, {LegendreP[0, Sin[l2]], 
+          LegendreP[1, Sin[l2]], 
+          LegendreP[2, Sin[l2]]}, \[IndentingNewLine]{LegendreP[0, Sin[l3]], 
+          LegendreP[1, Sin[l3]], LegendreP[2, Sin[l3]]}}\)], "Input"],
+
+Cell[BoxData[
+    \({{1, Sin[l1], 1\/2\ \((\(-1\) + 3\ Sin[l1]\^2)\)}, {1, Sin[l2], 
+        1\/2\ \((\(-1\) + 3\ Sin[l2]\^2)\)}, {1, Sin[l3], 
+        1\/2\ \((\(-1\) + 3\ Sin[l3]\^2)\)}}\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(a0 = \ Simplify[{1, 0, 0} . LinearSolve[M, {u1, u2, u3}]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(u1\ \((1 + 3\ Sin[l2]\ Sin[l3])\)\)\/\(3\ \((Sin[l1] - Sin[l2])\)\ \
+\((Sin[l1] - Sin[l3])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(a1\  = \ 
+      Simplify[{0, 1, 0} . LinearSolve[M, {u1, u2, u3}]]\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(u1\ \((Sin[l2] + Sin[l3])\)\)\/\(\((Sin[l1] - 
+                Sin[l2])\)\ \((Sin[l1] - Sin[l3])\)\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\(a2\  = \ 
+      Simplify[{0, 0, 1} . LinearSolve[M, {u1, u2, u3}]]\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ u1\)\/\(3\ \((Sin[l1] - Sin[l2])\)\ \((Sin[l1] - Sin[l3])\)\)\)], \
+"Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(u[lat_]\  := \ 
+      a0*LegendreP[0, Sin[lat]] + a1*LegendreP[1, Sin[lat]] + 
+        a2*LegendreP[2, Sin[lat]]\)], "Input"],
+
+Cell[BoxData[
+    \(d1[lat_]\  := \ Simplify[D[u[lat], lat]]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[D[Cos[lat] d1[lat], lat]/Cos[lat]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ u1\ \((Cos[lat]\^2 + \((Sin[l2] + Sin[l3] - 2\ Sin[lat])\)\ \
+Sin[lat])\)\)\/\(\((Sin[l1] - Sin[l2])\)\ \((Sin[l1] - Sin[l3])\)\)\)], \
+"Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \(lap[lat_, u1_, u2_, 
+        u3_]\  := \ \((2\ Cos[lat]\^2\ \((\((\(-u2\) + u3)\)\ Sin[
+                      l1] + \((u1 - u3)\)\ Sin[l2] + \((\(-u1\) + u2)\)\ Sin[
+                      l3])\) + 
+            Sin[lat]\ \((\((u2 - u3)\)\ Cos[2\ l1] + \((\(-u1\) + u3)\)\ Cos[
+                      2\ l2] + u1\ Cos[2\ l3] - u2\ Cos[2\ l3] + 
+                  4\ u2\ Sin[l1]\ Sin[lat] - 4\ u3\ Sin[l1]\ Sin[lat] - 
+                  4\ u1\ Sin[l2]\ Sin[lat] + 4\ u3\ Sin[l2]\ Sin[lat] + 
+                  4\ u1\ Sin[l3]\ Sin[lat] - 
+                  4\ u2\ Sin[l3]\ Sin[lat])\))\)/\((\((Sin[l1] - 
+                Sin[l2])\)\ \((Sin[l1] - Sin[l3])\)\ \((Sin[l2] - 
+                Sin[l3])\))\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(south1\  = \ FullSimplify[lap[l1, U1, 0, 0]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(U1\ \((\(-1\) + 3\ Cos[l1]\^2 - 3\ Sin[l1]\^2 + 2\ Sin[l1]\ \
+\((Sin[l2] + Sin[l3])\))\)\)\/\(\((Sin[l1] - Sin[l2])\)\ \((Sin[l1] - \
+Sin[l3])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(south2\  = \ FullSimplify[lap[l1, 0, U2, 0]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(2\ U2\ \((Cos[2\ l1] + Sin[l1]\ Sin[l3])\)\)\/\(\((Sin[l1] - 
+                Sin[l2])\)\ \((Sin[l2] - Sin[l3])\)\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(south3\  = \ FullSimplify[lap[l1, 0, 0, U3]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ U3\ \((Cos[2\ l1] + Sin[l1]\ Sin[l2])\)\)\/\(\((Sin[l1] - Sin[l3])\
+\)\ \((Sin[l2] - Sin[l3])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(north1\  = \ FullSimplify[lap[l3, U1, 0, 0]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ U1\ \((Cos[2\ l3] + Sin[l2]\ Sin[l3])\)\)\/\(\((Sin[l1] - Sin[l2])\
+\)\ \((Sin[l1] - Sin[l3])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(north2\  = \ FullSimplify[lap[l3, 0, U2, 0]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(2\ U2\ \((Cos[2\ l3] + Sin[l1]\ Sin[l3])\)\)\/\(\((Sin[l1] - 
+                Sin[l2])\)\ \((Sin[l2] - Sin[l3])\)\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(north3\  = \ FullSimplify[lap[l3, 0, 0, U3]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(U3\ \((\(-1\) + 3\ Cos[l3]\^2 + 
+                2\ \((Sin[l1] + Sin[l2])\)\ Sin[l3] - 
+                3\ Sin[l3]\^2)\)\)\/\(\((Sin[l1] - 
+                Sin[l3])\)\ \((\(-Sin[l2]\) + Sin[l3])\)\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(middle1\  = \ FullSimplify[lap[l2, U1, 0, 0]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ U1\ \((Cos[2\ l2] + Sin[l2]\ Sin[l3])\)\)\/\(\((Sin[l1] - Sin[l2])\
+\)\ \((Sin[l1] - Sin[l3])\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(middle2\  = \ FullSimplify[lap[l2, 0, U2, 0]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\(U2\ \((\(-1\) + 3\ Cos[l2]\^2 + 
+                Sin[l2]\ \((2\ Sin[l1] - 3\ Sin[l2] + 
+                      2\ Sin[l3])\))\)\)\/\(\((Sin[l1] - 
+                Sin[l2])\)\ \((Sin[l2] - Sin[l3])\)\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(middle3\  = \ FullSimplify[lap[l2, 0, 0, U3]]\)], "Input"],
+
+Cell[BoxData[
+    \(\(2\ U3\ \((Cos[2\ l2] + Sin[l1]\ Sin[l2])\)\)\/\(\((Sin[l1] - Sin[l3])\
+\)\ \((Sin[l2] - Sin[l3])\)\)\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.2 for X",
+ScreenRectangle->{{0, 1440}, {0, 900}},
+WindowSize->{652, 789},
+WindowMargins->{{Automatic, 160}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 317, 5, 59, "Input"],
+Cell[2096, 60, 202, 3, 81, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2335, 68, 90, 1, 27, "Input"],
+Cell[2428, 71, 130, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2595, 78, 130, 2, 43, "Input"],
+Cell[2728, 82, 145, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2910, 89, 130, 2, 43, "Input"],
+Cell[3043, 93, 102, 2, 46, "Output"]
+}, Open  ]],
+Cell[3160, 98, 145, 3, 43, "Input"],
+Cell[3308, 103, 73, 1, 27, "Input"],
+
+Cell[CellGroupData[{
+Cell[3406, 108, 76, 1, 27, "Input"],
+Cell[3485, 111, 170, 3, 48, "Output"]
+}, Open  ]],
+Cell[3670, 117, 729, 12, 132, "Input"],
+
+Cell[CellGroupData[{
+Cell[4424, 133, 77, 1, 27, "Input"],
+Cell[4504, 136, 182, 3, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[4723, 144, 77, 1, 27, "Input"],
+Cell[4803, 147, 160, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5000, 154, 77, 1, 27, "Input"],
+Cell[5080, 157, 136, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5253, 164, 77, 1, 27, "Input"],
+Cell[5333, 167, 136, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5506, 174, 77, 1, 27, "Input"],
+Cell[5586, 177, 160, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[5783, 184, 77, 1, 27, "Input"],
+Cell[5863, 187, 243, 4, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6143, 196, 78, 1, 27, "Input"],
+Cell[6224, 199, 136, 2, 46, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6397, 206, 78, 1, 27, "Input"],
+Cell[6478, 209, 244, 4, 48, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6759, 218, 78, 1, 27, "Input"],
+Cell[6840, 221, 136, 2, 46, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

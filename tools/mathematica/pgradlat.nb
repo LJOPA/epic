@@ -1,0 +1,626 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.2'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     28857,        550]*)
+(*NotebookOutlinePosition[     29512,        573]*)
+(*  CellTagsIndexPosition[     29468,        569]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(p[z_, z1_, z3_, p1_, p3_]\  := \ 
+      p1 + \((p3 - p1)\) \((z - z1)\)/\((z3 - z1)\)\)], "Input"],
+
+Cell[BoxData[{
+    \(zedge[ln_, ln1_, ln3_, z1_, z3_]\  := \ 
+      z1 + \((z3 - 
+              z1)\) \((ln - ln1)\)/\((ln3 - ln1)\)\), "\[IndentingNewLine]", 
+    \(rln[lt_, lts_, ltn_, rlns_, rlnn_]\  := \ 
+      rlns + \((rlnn - rlns)\) \((lt - lts)\)/\((ltn - lts)\)\)}], "Input"],
+
+Cell[BoxData[{
+    \(panorthsouth[lnw_, lne_, rln_, zb_, zt_, zbw_, zbe_, ztw_, zte_, pb_, 
+        pt_]\  := \ Integrate[
+        p[z, zb, zt, pb, pt]*rln, {ln, lnw, lne}, {z, 
+          zedge[ln, lnw, lne, zbw, zbe], 
+          zedge[ln, lnw, lne, ztw, zte]}]\), "\[IndentingNewLine]", 
+    \(zface[ln_, lnw_, lne_, lt_, lts_, ltn_, zsw_, znw_, zse_, zne_]\  := \ 
+      zedge[lt, lts, ltn, zedge[ln, lnw, lne, zsw, zse], 
+        zedge[ln, lnw, lne, znw, zne]]\), "\[IndentingNewLine]", 
+    \(lat[ln_, lnw_, lne_, lts_, ltn_, z_, zsw_, znw_, zse_, zne_]\  := \ 
+      lts + \((ltn - 
+              lts)\) \((z - 
+                zedge[ln, lnw, lne, zsw, zse])\)/\((zedge[ln, lnw, lne, znw, 
+                  zne] - zedge[ln, lnw, lne, zsw, zse])\)\)}], "Input"],
+
+Cell[BoxData[{
+    \(\(\(patopbot[x0_, x1_, x2_, x3_, zs_, zn_, zsw_, znw_, zse_, zne_, ps_, 
+        pn_] := \ Integrate[
+          p[z, zs, zn, ps, pn], {x, x0, x1}, {z, zedge[x, x0, x3, zsw, zse], 
+            zedge[x, x0, x1, zsw, znw]}] + 
+        Integrate[
+          p[z, zs, zn, ps, pn], {x, x1, x2}, {z, zedge[x, x0, x3, zsw, zse], 
+            zedge[x, x1, x2, znw, zne]}] + 
+        Integrate[
+          p[z, zs, zn, ps, pn], {x, x2, x3}, {z, zedge[x, x0, x3, zsw, zse], 
+            zedge[x, x2, x3, zne, zse]}]\)\(\[IndentingNewLine]\)
+    \)\), "\[IndentingNewLine]", 
+    \(paeastwest[xw_, xe_, zb_, zt_, zbw_, zbe_, ztw_, zte_, pb_, pt_]\  := \ 
+      Integrate[
+        p[z, zb, zt, pb, pt], {x, xw, xe}, {z, zedge[x, xw, xe, zbw, zbe], 
+          zedge[x, xw, xe, ztw, zte]}]\)}], "Input"],
+
+Cell[BoxData[
+    \(mass[rho_, rlt_, rlns_, rlnn_, lnw_, lne_, lts_, ltn_, zbsw_, zbnw_, 
+        zbse_, zbne_, ztsw_, ztnw_, ztse_, ztne_]\  := \ 
+      Integrate[
+        rho*rlt*rln[lt, lts, ltn, rlns, rlnn], {ln, lnw, lne}, {lt, lts, 
+          ltn}, {z, 
+          zface[ln, lnw, lne, lt, lts, ltn, zbsw, zbnw, zbse, zbne], 
+          zface[ln, lnw, lne, lt, lts, ltn, ztsw, ztnw, ztse, 
+            ztne]}]\)], "Input"],
+
+Cell[BoxData[
+    \(pgradlat[rho_, rlt_, rlns_, rlnn_, lnw_, lne_, lts_, ltn_, zbsw_, 
+        zbse_, zbnw_, zbne_, ztsw_, ztse_, ztnw_, ztne_, zbs_, zbn_, zts_, 
+        ztn_, pbs_, pbn_, pts_, 
+        ptn_]\  := \ \((panorthsouth[lnw, lne, rlns, zbs, zts, zbsw, zbse, 
+              ztsw, ztse, pbs, pts] - 
+            panorthsouth[lnw, lne, rlnn, zbn, ztn, zbnw, zbne, ztnw, ztne, 
+              pbn, ptn] - 
+            paeastwest[
+              0, \((rlns - rlnn)\) \((lne - lnw)\)/2, \((zbs + zbn)\)/
+                2, \((zts + ztn)\)/2, zbsw, zbnw, ztsw, 
+              ztnw, \((pbs + pbn)\)/2, \((pts + ptn)\)/2] - 
+            paeastwest[\((rlns + rlnn)\) \((lne - lnw)\)/2, 
+              rlns*\((lne - lnw)\), \((zbs + zbn)\)/2, \((zts + ztn)\)/2, 
+              zbne, zbse, ztne, ztse, \((pbs + pbn)\)/2, \((pts + ptn)\)/2] + 
+            patopbot[
+              0, \((rlns - rlnn)\) \((lne - lnw)\)/
+                  2, \((rlns + rlnn)\) \((lne - lnw)\)/2, 
+              rlns \((lne - lnw)\), zts, ztn, ztsw, ztnw, ztse, ztne, pts, 
+              ptn] - patopbot[
+              0, \((rlns - rlnn)\) \((lne - lnw)\)/
+                  2, \((rlns + rlnn)\) \((lne - lnw)\)/2, 
+              rlns \((lne - lnw)\), zbs, zbn, zbsw, zbnw, zbse, zbne, pbs, 
+              pbn])\)/mass[rho, rlt, rlns, rlnn, lnw, lne, lts, ltn, zbsw, 
+          zbnw, zbse, zbne, ztsw, ztnw, ztse, ztne]\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(testing\  = \ 
+      pgradlat[800.6, 50001. , 20000. , 
+        19998. , \((39.2*\[Pi]/180. )\), \((40. *\[Pi]/
+              180. )\), \((20. *\[Pi]/180. )\), \((21. *\[Pi]/180. )\), 
+        28.003, 30.000453, 18.05, 21.0001, 84.7, 90.03, 123.056, 100.01, 
+        29.02, 19.3, 87.06, 111. , 240.00333, 211.011, 101.04, 
+        100.02]\)], "Input"],
+
+Cell[BoxData[
+    \(4.898222033766168`*^-6\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(penv[z_]\  := \ a\ z\  + \ b\), "\[IndentingNewLine]", 
+    \(pofz\  = \ 
+      pgradlat[rho, rlt, rlns, rlnn, lnw, lne, lts, ltn, zbsw, zbse, zbnw, 
+        zbne, ztsw, ztse, ztnw, ztne, zbs, zbn, zts, ztn, penv[zbs], 
+        penv[zbn], penv[zts], penv[ztn]]\)}], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\((12\ \((\(-\(\(1\/\(48\ rlns\^2\)\)\((\((lne - lnw)\)\ \((rlnn - 
+                          rlns)\)\ \((rlnn\ \((zbse - zbsw)\) + 
+                          rlns\ \((\(-2\)\ zbne + zbse + 
+                                zbsw)\))\)\ \((6\ b\ rlns + 
+                          a\ \((rlnn\ \((zbse - zbsw)\) + 
+                                rlns\ \((2\ zbne + 3\ zbse + 
+                                      zbsw)\))\))\))\)\)\) - \(\(1\/\(48\ \
+rlns\^2\)\)\((\((lne - lnw)\)\ \((rlnn - rlns)\)\ \((2\ rlns\ zbnw + 
+                        rlnn\ zbse - 
+                        rlns\ zbse - \((rlnn + 
+                              rlns)\)\ zbsw)\)\ \((\(-6\)\ b\ rlns - 
+                        a\ \((rlnn\ \((\(-zbse\) + zbsw)\) + 
+                              rlns\ \((2\ zbnw + zbse + 
+                                    3\ zbsw)\))\))\))\)\) + \(\(1\/\(24\ rlns\
+\^2\)\)\((\((lne - lnw)\)\ rlnn\ \((12\ b\ rlns\^2\ \((\(-zbne\) - zbnw + 
+                              zbse + zbsw)\) + 
+                        a\ \((rlnn\^2\ \((zbse - zbsw)\)\^2 + 
+                              rlns\^2\ \((\(-4\)\ \((zbne\^2 + zbne\ zbnw + 
+                                        zbnw\^2)\) + 
+                                    3\ \((zbse + zbsw)\)\^2)\))\))\))\)\) + 
+                1\/6\ \((lne - 
+                      lnw)\)\ rlnn\ \((3\ b\ \((zbne + zbnw - ztne - 
+                            ztnw)\) + 
+                      a\ \((zbne\^2 + zbne\ zbnw + zbnw\^2 - ztne\^2 - 
+                            ztne\ ztnw - ztnw\^2)\))\) - 
+                1\/12\ \((lne - lnw)\)\ \((rlnn - 
+                      rlns)\)\ \((3\ b\ \((zbne + zbse - ztne - ztse)\) + 
+                      a\ \((zbne\^2 + zbne\ zbse + zbse\^2 - ztne\^2 - 
+                            ztne\ ztse - ztse\^2)\))\) - 
+                1\/12\ \((lne - lnw)\)\ \((rlnn - 
+                      rlns)\)\ \((3\ b\ \((zbnw + zbsw - ztnw - ztsw)\) + 
+                      a\ \((zbnw\^2 + zbnw\ zbsw + zbsw\^2 - ztnw\^2 - 
+                            ztnw\ ztsw - ztsw\^2)\))\) - 
+                1\/6\ \((lne - 
+                      lnw)\)\ rlns\ \((3\ b\ \((zbse + zbsw - ztse - 
+                            ztsw)\) + 
+                      a\ \((zbse\^2 + zbse\ zbsw + zbsw\^2 - ztse\^2 - 
+                            ztse\ ztsw - 
+                            ztsw\^2)\))\) + \(\(1\/\(48\ rlns\^2\)\)\((\((lne \
+- lnw)\)\ \((rlnn - rlns)\)\ \((rlnn\ \((ztse - ztsw)\) + 
+                        rlns\ \((\(-2\)\ ztne + ztse + 
+                              ztsw)\))\)\ \((6\ b\ rlns + 
+                        a\ \((rlnn\ \((ztse - ztsw)\) + 
+                              rlns\ \((2\ ztne + 3\ ztse + 
+                                    ztsw)\))\))\))\)\) + \(\(1\/\(48\ rlns\^2\
+\)\)\((\((lne - lnw)\)\ \((rlnn - rlns)\)\ \((2\ rlns\ ztnw + rlnn\ ztse - 
+                        rlns\ ztse - \((rlnn + 
+                              rlns)\)\ ztsw)\)\ \((\(-6\)\ b\ rlns - 
+                        a\ \((rlnn\ \((\(-ztse\) + ztsw)\) + 
+                              rlns\ \((2\ ztnw + ztse + 
+                                    3\ ztsw)\))\))\))\)\) - \(\(1\/\(24\ rlns\
+\^2\)\)\((\((lne - lnw)\)\ rlnn\ \((12\ b\ rlns\^2\ \((\(-ztne\) - ztnw + 
+                              ztse + ztsw)\) + 
+                        a\ \((rlnn\^2\ \((ztse - ztsw)\)\^2 + 
+                              rlns\^2\ \((\(-4\)\ \((ztne\^2 + ztne\ ztnw + 
+                                        ztnw\^2)\) + 
+                                    3\ \((ztse + ztsw)\)\^2)\))\))\))\)\))\))\
+\)/\((\((lne - lnw)\)\ \((ltn - 
+                lts)\)\ rho\ rlt\ \((rlns\ \((zbne + zbnw + 2\ zbse + 
+                      2\ zbsw - ztne - ztnw - 2\ ztse - 2\ ztsw)\) + 
+                rlnn\ \((2\ zbne + 2\ zbnw + zbse + zbsw - 2\ ztne - 
+                      2\ ztnw - ztse - ztsw)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[%, Trig \[Rule] False]\)], "Input"],
+
+Cell[BoxData[
+    \(0\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+    \(simplecube\  = \ 
+      pgradlat[rho, rlt, rlns, rlnn, ln1, ln2, lt1, lt2, z1, z1, z1, z1, z2, 
+        z2, z2, z2, z1, z1, z2, z2, p1, p2, p1, 
+        p2]\), "\[IndentingNewLine]", 
+    \(Simplify[%, Trig \[Rule] False]\)}], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(Power::"infy"\), \(\(:\)\(\ \)\), "\<\"Infinite expression \
+\\!\\(1\\/0\\) encountered. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Power::infy\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    RowBox[{\(General::"stop"\), \(\(:\)\(\ \)\), "\<\"Further output of \
+\\!\\(Power :: \\\"infy\\\"\\) will be suppressed during this calculation. \
+\\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", ButtonStyle->\\\"RefGuideLinkText\
+\\\", ButtonFrame->None, ButtonData:>\\\"General::stop\\\"]\\)\"\>"}]], \
+"Message"],
+
+Cell[BoxData[
+    \(\((2\ \((\(-\((ln1 - ln2)\)\)\ p2\ rlnn\ \((z1 - z2)\) + 
+              1\/2\ \((ln1 - ln2)\)\ \((p1 + p2)\)\ \((rlnn - 
+                    rlns)\)\ \((z1 - z2)\) + \((ln1 - 
+                    ln2)\)\ p1\ rlns\ \((z1 - z2)\))\))\)/\((\((\(-ln1\) + 
+              ln2)\)\ \((lt1 - lt2)\)\ rho\ \((rlnn + rlns)\)\ rlt\ \((z1 - 
+              z2)\))\)\)], "Output"],
+
+Cell[BoxData[
+    \(\(-\(\(p1 - p2\)\/\(lt1\ rho\ rlt - lt2\ rho\ rlt\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(arbcube\  = \ 
+      pgradlat[rho, rlt, rlns, rlnn, lnw, lne, lts, ltn, zbsw, zbse, zbnw, 
+        zbne, ztsw, ztse, ztnw, ztne, zbs, zbn, zts, ztn, pbs, pbn, pts, 
+        ptn]\)], "Input"],
+
+Cell[BoxData[
+    \(\(-\(\((12\ \((\(\(1\/\(48\ rlns\^2\ \((zbn - zbs)\)\)\)\((\((lne - 
+                        lnw)\)\ \((rlnn - 
+                        rlns)\)\ \((rlnn\ \((zbse - zbsw)\) + 
+                        rlns\ \((\(-2\)\ zbne + zbse + 
+                              zbsw)\))\)\ \((pbs\ \((rlnn\ \((zbse - 
+                                    zbsw)\) + 
+                              rlns\ \((\(-6\)\ zbn + 2\ zbne + 3\ zbse + 
+                                    zbsw)\))\) - 
+                        pbn\ \((rlnn\ \((zbse - zbsw)\) + 
+                              rlns\ \((2\ zbne - 6\ zbs + 3\ zbse + 
+                                    zbsw)\))\))\))\)\) + \(\(1\/\(48\ rlns\^2\
+\ \((zbn - zbs)\)\)\)\((\((lne - lnw)\)\ \((rlnn - 
+                        rlns)\)\ \((rlns\ \((2\ zbnw - zbse - zbsw)\) + 
+                        rlnn\ \((zbse - 
+                              zbsw)\))\)\ \((pbs\ \((rlns\ \((6\ zbn - 
+                                    2\ zbnw - zbse - 3\ zbsw)\) + 
+                              rlnn\ \((zbse - zbsw)\))\) + 
+                        pbn\ \((rlnn\ \((\(-zbse\) + zbsw)\) + 
+                              rlns\ \((2\ zbnw - 6\ zbs + zbse + 
+                                    3\ zbsw)\))\))\))\)\) - \(\(1\/\(24\ rlns\
+\^2\ \((zbn - zbs)\)\)\)\((\((lne - 
+                        lnw)\)\ rlnn\ \((pbn\ \((\(-rlnn\^2\)\ \((zbse - \
+zbsw)\)\^2 + rlns\^2\ \((4\ zbne\^2 + 4\ zbnw\^2 + 
+                                    4\ zbne\ \((zbnw - 3\ zbs)\) - 
+                                    12\ zbnw\ zbs + 
+                                    3\ \((4\ zbs - zbse - zbsw)\)\ \((zbse + 
+                                        zbsw)\))\))\) + 
+                        pbs\ \((rlnn\^2\ \((zbse - zbsw)\)\^2 + 
+                              rlns\^2\ \((\(-4\)\ \((zbne\^2 + zbne\ zbnw + 
+                                        zbnw\^2)\) + 
+                                    12\ zbn\ \((zbne + zbnw - zbse - 
+                                        zbsw)\) + 
+                                    3\ \((zbse + zbsw)\)\^2)\))\))\))\)\) + \
+\(\(1\/\(6\ \((zbn - ztn)\)\)\)\((\((lne - 
+                        lnw)\)\ rlnn\ \((pbn\ \((zbne\^2 + 
+                              zbne\ \((zbnw - 3\ ztn)\) + \((zbnw - 
+                                    ztne)\)\ \((zbnw - 3\ ztn + 
+                                    ztne)\) + \((3\ ztn - ztne)\)\ ztnw - 
+                              ztnw\^2)\) + 
+                        ptn\ \((\(-zbne\^2\) - zbne\ zbnw - zbnw\^2 + 
+                              ztne\^2 + 
+                              3\ zbn\ \((zbne + zbnw - ztne - ztnw)\) + 
+                              ztne\ ztnw + ztnw\^2)\))\))\)\) - \((\((lne - 
+                          lnw)\)\ \((rlnn - 
+                          rlns)\)\ \((\((pbn + 
+                                pbs)\)\ \((2\ zbne\^2 + \((zbse - 
+                                      ztne)\)\ \((2\ zbse - 3\ ztn + 
+                                      2\ ztne - 3\ zts)\) + 
+                                zbne\ \((2\ zbse - 
+                                      3\ \((ztn + zts)\))\) + \((3\ ztn - 
+                                      2\ ztne + 3\ zts)\)\ ztse - 
+                                2\ ztse\^2)\) + 
+                          ptn\ \((\(-2\)\ zbne\^2 + 3\ zbne\ zbs - 
+                                2\ zbne\ zbse + 3\ zbs\ zbse - 2\ zbse\^2 - 
+                                3\ zbs\ ztne + 2\ ztne\^2 + 
+                                3\ zbn\ \((zbne + zbse - ztne - ztse)\) - 
+                                3\ zbs\ ztse + 2\ ztne\ ztse + 
+                                2\ ztse\^2)\) + 
+                          pts\ \((\(-2\)\ zbne\^2 + 3\ zbne\ zbs - 
+                                2\ zbne\ zbse + 3\ zbs\ zbse - 2\ zbse\^2 - 
+                                3\ zbs\ ztne + 2\ ztne\^2 + 
+                                3\ zbn\ \((zbne + zbse - ztne - ztse)\) - 
+                                3\ zbs\ ztse + 2\ ztne\ ztse + 
+                                2\ ztse\^2)\))\))\)/\((24\ \((zbn + zbs - 
+                          ztn - zts)\))\) - \(\(1\/\(6\ \((zbs - 
+                          zts)\)\)\)\((\((lne - 
+                        lnw)\)\ rlns\ \((pbs\ \((zbse\^2 + 
+                              zbse\ \((zbsw - 3\ zts)\) + \((zbsw - 
+                                    ztse)\)\ \((zbsw - 3\ zts + 
+                                    ztse)\) + \((3\ zts - ztse)\)\ ztsw - 
+                              ztsw\^2)\) + 
+                        pts\ \((\(-zbse\^2\) - zbse\ zbsw - zbsw\^2 + 
+                              ztse\^2 + 
+                              3\ zbs\ \((zbse + zbsw - ztse - ztsw)\) + 
+                              ztse\ ztsw + ztsw\^2)\))\))\)\) - \((\((lne - 
+                          lnw)\)\ \((rlnn - 
+                          rlns)\)\ \((\((pbn + 
+                                pbs)\)\ \((2\ zbnw\^2 + \((zbsw - 
+                                      ztnw)\)\ \((2\ zbsw - 3\ ztn + 
+                                      2\ ztnw - 3\ zts)\) + 
+                                zbnw\ \((2\ zbsw - 
+                                      3\ \((ztn + zts)\))\) + \((3\ ztn - 
+                                      2\ ztnw + 3\ zts)\)\ ztsw - 
+                                2\ ztsw\^2)\) + 
+                          ptn\ \((\(-2\)\ zbnw\^2 + 3\ zbnw\ zbs - 
+                                2\ zbnw\ zbsw + 3\ zbs\ zbsw - 2\ zbsw\^2 - 
+                                3\ zbs\ ztnw + 2\ ztnw\^2 + 
+                                3\ zbn\ \((zbnw + zbsw - ztnw - ztsw)\) - 
+                                3\ zbs\ ztsw + 2\ ztnw\ ztsw + 
+                                2\ ztsw\^2)\) + 
+                          pts\ \((\(-2\)\ zbnw\^2 + 3\ zbnw\ zbs - 
+                                2\ zbnw\ zbsw + 3\ zbs\ zbsw - 2\ zbsw\^2 - 
+                                3\ zbs\ ztnw + 2\ ztnw\^2 + 
+                                3\ zbn\ \((zbnw + zbsw - ztnw - ztsw)\) - 
+                                3\ zbs\ ztsw + 2\ ztnw\ ztsw + 
+                                2\ ztsw\^2)\))\))\)/\((24\ \((zbn + zbs - 
+                          ztn - zts)\))\) - \(\(1\/\(48\ rlns\^2\ \((ztn - 
+                          zts)\)\)\)\((\((lne - lnw)\)\ \((rlnn - 
+                        rlns)\)\ \((rlnn\ \((ztse - ztsw)\) + 
+                        rlns\ \((\(-2\)\ ztne + ztse + 
+                              ztsw)\))\)\ \((pts\ \((rlnn\ \((ztse - 
+                                    ztsw)\) + 
+                              rlns\ \((\(-6\)\ ztn + 2\ ztne + 3\ ztse + 
+                                    ztsw)\))\) - 
+                        ptn\ \((rlnn\ \((ztse - ztsw)\) + 
+                              rlns\ \((2\ ztne - 6\ zts + 3\ ztse + 
+                                    ztsw)\))\))\))\)\) - \(\(1\/\(48\ rlns\^2\
+\ \((ztn - zts)\)\)\)\((\((lne - lnw)\)\ \((rlnn - 
+                        rlns)\)\ \((rlns\ \((2\ ztnw - ztse - ztsw)\) + 
+                        rlnn\ \((ztse - 
+                              ztsw)\))\)\ \((pts\ \((rlns\ \((6\ ztn - 
+                                    2\ ztnw - ztse - 3\ ztsw)\) + 
+                              rlnn\ \((ztse - ztsw)\))\) + 
+                        ptn\ \((rlnn\ \((\(-ztse\) + ztsw)\) + 
+                              rlns\ \((2\ ztnw - 6\ zts + ztse + 
+                                    3\ ztsw)\))\))\))\)\) + \(\(1\/\(24\ rlns\
+\^2\ \((ztn - zts)\)\)\)\((\((lne - 
+                        lnw)\)\ rlnn\ \((ptn\ \((\(-rlnn\^2\)\ \((ztse - \
+ztsw)\)\^2 + rlns\^2\ \((4\ ztne\^2 + 4\ ztnw\^2 + 
+                                    4\ ztne\ \((ztnw - 3\ zts)\) - 
+                                    12\ ztnw\ zts + 
+                                    3\ \((4\ zts - ztse - ztsw)\)\ \((ztse + 
+                                        ztsw)\))\))\) + 
+                        pts\ \((rlnn\^2\ \((ztse - ztsw)\)\^2 + 
+                              rlns\^2\ \((\(-4\)\ \((ztne\^2 + ztne\ ztnw + 
+                                        ztnw\^2)\) + 
+                                    12\ ztn\ \((ztne + ztnw - ztse - 
+                                        ztsw)\) + 
+                                    3\ \((ztse + ztsw)\)\^2)\))\))\))\)\))\))\
+\)/\((\((lne - lnw)\)\ \((ltn - 
+                lts)\)\ rho\ rlt\ \((rlns\ \((zbne + zbnw + 2\ zbse + 
+                      2\ zbsw - ztne - ztnw - 2\ ztse - 2\ ztsw)\) + 
+                rlnn\ \((2\ zbne + 2\ zbnw + zbse + zbsw - 2\ ztne - 
+                      2\ ztnw - ztse - ztsw)\))\))\)\)\)\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Simplify[%, \ Trig \[Rule] False, 
+      TimeConstraint \[Rule] 100]\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{\(Simplify::"time"\), \(\(:\)\(\ \)\), "\<\"Time spent on a \
+transformation exceeded \\!\\(100\\) seconds, and the transformation was \
+aborted. Increasing the value of TimeConstraint option may improve the result \
+of simplification. \\!\\(\\*ButtonBox[\\\"More\[Ellipsis]\\\", \
+ButtonStyle->\\\"RefGuideLinkText\\\", ButtonFrame->None, \
+ButtonData:>\\\"Simplify::time\\\"]\\)\"\>"}]], "Message"],
+
+Cell[BoxData[
+    \(\(-\(\((\(\(1\/\(rlns\^2\ \((zbn - zbs)\)\)\)\((\((rlnn - 
+                    rlns)\)\ \((rlnn\ \((zbse - zbsw)\) + 
+                    rlns\ \((\(-2\)\ zbne + zbse + 
+                          zbsw)\))\)\ \((pbs\ \((rlnn\ \((zbse - zbsw)\) + 
+                          rlns\ \((\(-6\)\ zbn + 2\ zbne + 3\ zbse + 
+                                zbsw)\))\) - 
+                    pbn\ \((rlnn\ \((zbse - zbsw)\) + 
+                          rlns\ \((2\ zbne - 6\ zbs + 3\ zbse + 
+                                zbsw)\))\))\))\)\) + \(\(1\/\(rlns\^2\ \((zbn \
+- zbs)\)\)\)\((\((rlnn - rlns)\)\ \((rlns\ \((2\ zbnw - zbse - zbsw)\) + 
+                    rlnn\ \((zbse - 
+                          zbsw)\))\)\ \((pbs\ \((rlns\ \((6\ zbn - 2\ zbnw - 
+                                zbse - 3\ zbsw)\) + 
+                          rlnn\ \((zbse - zbsw)\))\) + 
+                    pbn\ \((rlnn\ \((\(-zbse\) + zbsw)\) + 
+                          rlns\ \((2\ zbnw - 6\ zbs + zbse + 
+                                3\ zbsw)\))\))\))\)\) - \(\(1\/\(rlns\^2\ \
+\((zbn - zbs)\)\)\)\((2\ rlnn\ \((pbn\ \((\(-rlnn\^2\)\ \((zbse - zbsw)\)\^2 \
++ rlns\^2\ \((4\ zbne\^2 + 4\ zbnw\^2 + 4\ zbne\ \((zbnw - 3\ zbs)\) - 
+                                12\ zbnw\ zbs + 
+                                3\ \((4\ zbs - zbse - zbsw)\)\ \((zbse + 
+                                      zbsw)\))\))\) + 
+                    pbs\ \((rlnn\^2\ \((zbse - zbsw)\)\^2 + 
+                          rlns\^2\ \((\(-4\)\ \((zbne\^2 + zbne\ zbnw + 
+                                      zbnw\^2)\) + 
+                                12\ zbn\ \((zbne + zbnw - zbse - zbsw)\) + 
+                                3\ \((zbse + zbsw)\)\^2)\))\))\))\)\) + \(\(1\
+\/\(zbn - ztn\)\)\((8\ rlnn\ \((pbn\ \((zbne\^2 + 
+                          zbne\ \((zbnw - 3\ ztn)\) + \((zbnw - 
+                                ztne)\)\ \((zbnw - 3\ ztn + 
+                                ztne)\) + \((3\ ztn - ztne)\)\ ztnw - 
+                          ztnw\^2)\) + 
+                    ptn\ \((\(-zbne\^2\) - zbne\ zbnw - zbnw\^2 + ztne\^2 + 
+                          3\ zbn\ \((zbne + zbnw - ztne - ztnw)\) + 
+                          ztne\ ztnw + ztnw\^2)\))\))\)\) - \(\(1\/\(zbn + 
+                  zbs - ztn - 
+                  zts\)\)\((2\ \((rlnn - 
+                    rlns)\)\ \((\((pbn + 
+                          pbs)\)\ \((2\ zbne\^2 + \((zbse - 
+                                ztne)\)\ \((2\ zbse - 3\ ztn + 2\ ztne - 
+                                3\ zts)\) + 
+                          zbne\ \((2\ zbse - 
+                                3\ \((ztn + zts)\))\) + \((3\ ztn - 2\ ztne + 
+                                3\ zts)\)\ ztse - 2\ ztse\^2)\) + 
+                    ptn\ \((\(-2\)\ zbne\^2 + 3\ zbne\ zbs - 2\ zbne\ zbse + 
+                          3\ zbs\ zbse - 2\ zbse\^2 - 3\ zbs\ ztne + 
+                          2\ ztne\^2 + 
+                          3\ zbn\ \((zbne + zbse - ztne - ztse)\) - 
+                          3\ zbs\ ztse + 2\ ztne\ ztse + 2\ ztse\^2)\) + 
+                    pts\ \((\(-2\)\ zbne\^2 + 3\ zbne\ zbs - 2\ zbne\ zbse + 
+                          3\ zbs\ zbse - 2\ zbse\^2 - 3\ zbs\ ztne + 
+                          2\ ztne\^2 + 
+                          3\ zbn\ \((zbne + zbse - ztne - ztse)\) - 
+                          3\ zbs\ ztse + 2\ ztne\ ztse + 
+                          2\ ztse\^2)\))\))\)\) - \(\(1\/\(zbs - 
+                  zts\)\)\((8\ rlns\ \((pbs\ \((zbse\^2 + 
+                          zbse\ \((zbsw - 3\ zts)\) + \((zbsw - 
+                                ztse)\)\ \((zbsw - 3\ zts + 
+                                ztse)\) + \((3\ zts - ztse)\)\ ztsw - 
+                          ztsw\^2)\) + 
+                    pts\ \((\(-zbse\^2\) - zbse\ zbsw - zbsw\^2 + ztse\^2 + 
+                          3\ zbs\ \((zbse + zbsw - ztse - ztsw)\) + 
+                          ztse\ ztsw + ztsw\^2)\))\))\)\) - \(\(1\/\(zbn + 
+                  zbs - ztn - 
+                  zts\)\)\((2\ \((rlnn - 
+                    rlns)\)\ \((\((pbn + 
+                          pbs)\)\ \((2\ zbnw\^2 + \((zbsw - 
+                                ztnw)\)\ \((2\ zbsw - 3\ ztn + 2\ ztnw - 
+                                3\ zts)\) + 
+                          zbnw\ \((2\ zbsw - 
+                                3\ \((ztn + zts)\))\) + \((3\ ztn - 2\ ztnw + 
+                                3\ zts)\)\ ztsw - 2\ ztsw\^2)\) + 
+                    ptn\ \((\(-2\)\ zbnw\^2 + 3\ zbnw\ zbs - 2\ zbnw\ zbsw + 
+                          3\ zbs\ zbsw - 2\ zbsw\^2 - 3\ zbs\ ztnw + 
+                          2\ ztnw\^2 + 
+                          3\ zbn\ \((zbnw + zbsw - ztnw - ztsw)\) - 
+                          3\ zbs\ ztsw + 2\ ztnw\ ztsw + 2\ ztsw\^2)\) + 
+                    pts\ \((\(-2\)\ zbnw\^2 + 3\ zbnw\ zbs - 2\ zbnw\ zbsw + 
+                          3\ zbs\ zbsw - 2\ zbsw\^2 - 3\ zbs\ ztnw + 
+                          2\ ztnw\^2 + 
+                          3\ zbn\ \((zbnw + zbsw - ztnw - ztsw)\) - 
+                          3\ zbs\ ztsw + 2\ ztnw\ ztsw + 
+                          2\ ztsw\^2)\))\))\)\) - \(\(1\/\(rlns\^2\ \((ztn - 
+                      zts)\)\)\)\((\((rlnn - 
+                    rlns)\)\ \((rlnn\ \((ztse - ztsw)\) + 
+                    rlns\ \((\(-2\)\ ztne + ztse + 
+                          ztsw)\))\)\ \((pts\ \((rlnn\ \((ztse - ztsw)\) + 
+                          rlns\ \((\(-6\)\ ztn + 2\ ztne + 3\ ztse + 
+                                ztsw)\))\) - 
+                    ptn\ \((rlnn\ \((ztse - ztsw)\) + 
+                          rlns\ \((2\ ztne - 6\ zts + 3\ ztse + 
+                                ztsw)\))\))\))\)\) - \(\(1\/\(rlns\^2\ \((ztn \
+- zts)\)\)\)\((\((rlnn - rlns)\)\ \((rlns\ \((2\ ztnw - ztse - ztsw)\) + 
+                    rlnn\ \((ztse - 
+                          ztsw)\))\)\ \((pts\ \((rlns\ \((6\ ztn - 2\ ztnw - 
+                                ztse - 3\ ztsw)\) + 
+                          rlnn\ \((ztse - ztsw)\))\) + 
+                    ptn\ \((rlnn\ \((\(-ztse\) + ztsw)\) + 
+                          rlns\ \((2\ ztnw - 6\ zts + ztse + 
+                                3\ ztsw)\))\))\))\)\) + \(\(1\/\(rlns\^2\ \
+\((ztn - zts)\)\)\)\((2\ rlnn\ \((ptn\ \((\(-rlnn\^2\)\ \((ztse - ztsw)\)\^2 \
++ rlns\^2\ \((4\ ztne\^2 + 4\ ztnw\^2 + 4\ ztne\ \((ztnw - 3\ zts)\) - 
+                                12\ ztnw\ zts + 
+                                3\ \((4\ zts - ztse - ztsw)\)\ \((ztse + 
+                                      ztsw)\))\))\) + 
+                    pts\ \((rlnn\^2\ \((ztse - ztsw)\)\^2 + 
+                          rlns\^2\ \((\(-4\)\ \((ztne\^2 + ztne\ ztnw + 
+                                      ztnw\^2)\) + 
+                                12\ ztn\ \((ztne + ztnw - ztse - ztsw)\) + 
+                                3\ \((ztse + ztsw)\)\^2)\))\))\))\)\))\)/\((4\
+\ \((ltn - lts)\)\ rho\ rlt\ \((rlns\ \((zbne + zbnw + 2\ zbse + 2\ zbsw - 
+                      ztne - ztnw - 2\ ztse - 2\ ztsw)\) + 
+                rlnn\ \((2\ zbne + 2\ zbnw + zbse + zbsw - 2\ ztne - 
+                      2\ ztnw - ztse - ztsw)\))\))\)\)\)\)], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.2 for X",
+ScreenRectangle->{{0, 1440}, {0, 900}},
+WindowToolbars->"EditBar",
+WindowSize->{766, 825},
+WindowMargins->{{Automatic, 10}, {Automatic, 0}}
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 118, 2, 27, "Input"],
+Cell[1875, 55, 284, 5, 43, "Input"],
+Cell[2162, 62, 766, 13, 139, "Input"],
+Cell[2931, 77, 807, 15, 187, "Input"],
+Cell[3741, 94, 425, 8, 91, "Input"],
+Cell[4169, 104, 1409, 24, 219, "Input"],
+
+Cell[CellGroupData[{
+Cell[5603, 132, 371, 7, 59, "Input"],
+Cell[5977, 141, 56, 1, 29, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[6070, 147, 295, 5, 59, "Input"],
+Cell[6368, 154, 3882, 62, 568, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10287, 221, 64, 1, 27, "Input"],
+Cell[10354, 224, 35, 1, 27, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10426, 230, 256, 5, 59, "Input"],
+Cell[10685, 237, 278, 4, 37, "Message"],
+Cell[10966, 243, 278, 4, 37, "Message"],
+Cell[11247, 249, 278, 4, 37, "Message"],
+Cell[11528, 255, 329, 5, 20, "Message"],
+Cell[11860, 262, 385, 6, 98, "Output"],
+Cell[12248, 270, 89, 1, 44, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12374, 276, 210, 4, 43, "Input"],
+Cell[12587, 282, 8507, 134, 976, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[21131, 421, 101, 2, 27, "Input"],
+Cell[21235, 425, 426, 6, 33, "Message"],
+Cell[21664, 433, 7177, 114, 914, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+
