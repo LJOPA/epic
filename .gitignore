@@ -1,3 +1,8 @@
 **/bin
-
 .DS_Store
+*.o
+src/single/change
+src/single/initial
+src/single/epic
+.idea
+netcfd/
