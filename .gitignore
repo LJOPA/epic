@@ -1,8 +1,10 @@
 **/bin
 .DS_Store
 *.o
+*.a
 src/single/change
 src/single/initial
 src/single/epic
 .idea
-netcfd/
+netcdf/
+src/mpi/mpi_epic
