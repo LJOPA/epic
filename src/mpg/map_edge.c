@@ -28,8 +28,11 @@
 #include <stdlib.h>
 #include "mpi.h"
 #include "qa.h"
+#include "mpich_decomp.h"
 
 #define M_EDGE_SEND 250
+
+extern void  map_error (const char *s);
 
 struct s_commlist 
 {

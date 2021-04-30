@@ -139,7 +139,7 @@ int main(int   argc,
 #ifdef EPIC_MPI
   MPI_Init(&argc,&argv);
   para.comm = MPI_COMM_WORLD;
-  MPI_Errhandler_set(para.comm,MPI_ERRORS_RETURN);
+  MPI_Comm_set_errhandler(para.comm,MPI_ERRORS_RETURN);
   MPI_Comm_rank(para.comm,&para.iamnode);
   MPI_Comm_size(para.comm,&para.nproc);
 #endif

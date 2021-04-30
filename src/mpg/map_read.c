@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include "mpi.h"
 #include "qa.h"
+#include "mpich_decomp.h"
 
 #define M_NEED_ROW 240
 
