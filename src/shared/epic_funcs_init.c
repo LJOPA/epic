@@ -2960,7 +2960,7 @@ EPIC_FLOAT fp_yp(EPIC_FLOAT p,
 #if EPIC_PRECSION == DOUBLE_PRECISION
       fscanf(infile,"%lf",press+k);
 #else
-      fscanf(infile,"%f",press+k);
+      fscanf(infile,"%lf",press+k);
 #endif
 
       /* convert press to mks */
@@ -3295,7 +3295,7 @@ EPIC_FLOAT p_gz(planetspec *planet,
   /*
    * Screen for NaN.
    */
-  if (!finite(p) || !finite(gz)) {
+  if (!isfinite(p) || !isfinite(gz)) {
     sprintf(Message,"gz=%g, p=%g",gz,p);
     epic_error(dbmsname,Message);
   }
@@ -3483,7 +3483,7 @@ EPIC_FLOAT rho_gz(planetspec *planet,
   /*
    * Screen for NaN.
    */
-  if (!finite(rho) || !finite(gz)) {
+  if (!isfinite(rho) || !isfinite(gz)) {
     sprintf(Message,"gz=%g, rho=%g",gz,rho);
     epic_error(dbmsname,Message);
   }
@@ -3673,7 +3673,7 @@ EPIC_FLOAT gz_p(planetspec *planet,
   /*
    * Screen for NaN.
    */
-  if (!finite(gz) || !finite(p)) {
+  if (!isfinite(gz) || !isfinite(p)) {
     sprintf(Message,"gz=%g, p=%g",gz,p);
     epic_error(dbmsname,Message);
   }
