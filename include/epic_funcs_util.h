@@ -228,21 +228,21 @@ inline FLOAT splint(register FLOAT          xx,
                     register float_triplet *table,
                     register FLOAT          dx);
 
-inline FLOAT linint(register FLOAT          xx,
+extern inline FLOAT linint(register FLOAT          xx,
                     register float_triplet *table,
                     register FLOAT          dx);
 
 void spline_pchip(int            n,
                   float_triplet *table);
 
-inline FLOAT splint_pchip(FLOAT          xx,
+extern inline FLOAT splint_pchip(FLOAT          xx,
                           float_triplet *table,
                           FLOAT          h);
 
-inline FLOAT pchst(FLOAT arg1,
+extern inline FLOAT pchst(FLOAT arg1,
                    FLOAT arg2);
 
-inline FLOAT lagrange_interp(register FLOAT *f,
+extern inline FLOAT lagrange_interp(register FLOAT *f,
                              register FLOAT *x,
                              register int order);
 

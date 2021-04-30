@@ -118,7 +118,7 @@ void init_subgrid(planetspec *planet);
 
 void set_diffusion_coef(planetspec *planet);
 
-inline void source_sink_turb(planetspec  *planet,
+extern inline void source_sink_turb(planetspec  *planet,
 	                     EPIC_FLOAT **Buff2D);
 
 void source_sink_SA(planetspec  *planet,
@@ -136,9 +136,9 @@ EPIC_FLOAT delta_SA(planetspec *planet,
 
 void set_bc_nu_turb(planetspec *planet);
 
-EPIC_FLOAT tau_surface(planetspec  *planet,
+void tau_surface(planetspec  *planet,
                        int          index,
-		       EPIC_FLOAT  *tau_wall,
+		               EPIC_FLOAT  *tau_wall,
                        EPIC_FLOAT  *buffji); 
 
 EPIC_FLOAT law_of_the_wall(planetspec *planet,

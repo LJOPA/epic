@@ -2418,7 +2418,7 @@ void stability_factor(int         index,
  * NOTE: There is a name conflict with "source_sink_subgrid" and 
  *       LAM MPI, in the file lam_config_file.h.
  */
-inline void source_sink_turb(planetspec  *planet,
+extern inline void source_sink_turb(planetspec  *planet,
                              EPIC_FLOAT **Buff2D)
 {
 
@@ -2816,7 +2816,7 @@ EPIC_FLOAT delta_SA(planetspec *planet,
  *       from a pad position (like J=JLOPAD or I=IHIPAD).
  */
 
-EPIC_FLOAT tau_surface(planetspec  *planet,
+void tau_surface(planetspec  *planet,
                        int          index,
                        EPIC_FLOAT  *tau_wall,
                        EPIC_FLOAT  *buffji)
@@ -2962,7 +2962,7 @@ EPIC_FLOAT tau_surface(planetspec  *planet,
    */
   for (J = JLO; J <= JHI; J++) {
      for (I = ILO; I <= IHI; I++) {
-      if (!finite(TAU_WALL(J,I))) {
+      if (!isfinite(TAU_WALL(J,I))) {
         sprintf(Message,"index=%d, TAU_WALL(%d,%d)=%g",index,J,I,TAU_WALL(J,I));
         epic_error(dbmsname,Message);
       }

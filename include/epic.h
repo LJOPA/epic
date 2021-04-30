@@ -1014,6 +1014,19 @@ EPIC_FLOAT return_press(planetspec *planet,
 
 EPIC_FLOAT rho_minus_rho(EPIC_FLOAT temperature);
 
+int number_spots_in_file( char *spots_file );
+void read_spots_file( 
+               char       *spots_file,
+               EPIC_FLOAT *ampspot,
+               EPIC_FLOAT *lonspot,
+               EPIC_FLOAT *latspot,
+               EPIC_FLOAT *pspot,
+               EPIC_FLOAT *aspot,
+               EPIC_FLOAT *bspot,
+               EPIC_FLOAT *cspot_up,
+               EPIC_FLOAT *cspot_down,
+               int        adjust_amplitude );
+
 /*
  * Global variables used to communicate with rho_minus_rho().
  */
@@ -1104,7 +1117,7 @@ EPIC_FLOAT enthalpy(EPIC_FLOAT temperature,
 /*
  * Use double precision to increase accuracy of diagnostic theta calculations.
  */
-inline double return_sigmatheta(register double theta,
+extern inline double return_sigmatheta(register double theta,
                                 register double p,
                                 register double pbot,
                                 register double ptop);

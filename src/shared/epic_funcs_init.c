@@ -2821,7 +2821,7 @@ EPIC_FLOAT t_yp(EPIC_FLOAT        p,
   }
   /* End initialization. */
 
-  if (p == 0) return;
+  // if (p == 0) return;
 
   if (mode == 1) {
     /* Synthetic data: */

@@ -633,7 +633,7 @@ inline FLOAT splint(register FLOAT          xx,
  * to make it easy to switch between the two.
  */
 
-inline FLOAT linint(register FLOAT          xx,
+extern inline FLOAT linint(register FLOAT          xx,
                     register float_triplet *table,
                     register FLOAT          dx)
 {
@@ -923,7 +923,7 @@ void spline_pchip(int            n,
  *    Returns the value of the cubic function at the point xx.
  */
 
-inline FLOAT splint_pchip(FLOAT          xx,
+extern inline FLOAT splint_pchip(FLOAT          xx,
                           float_triplet *table,
                           FLOAT          h)
 {
@@ -997,8 +997,8 @@ inline FLOAT splint_pchip(FLOAT          xx,
  *    +1.0, if arg1 and arg2 are of the same sign.
  */
 
-inline FLOAT pchst(FLOAT arg1,
-                   FLOAT arg2)
+extern inline FLOAT pchst(FLOAT arg1,
+                          FLOAT arg2)
 {
   FLOAT
     value;
@@ -1052,7 +1052,7 @@ inline FLOAT pchst(FLOAT arg1,
  *                          x[3] = x3, etc.
  */
 
-inline FLOAT lagrange_interp(register FLOAT *f,
+extern inline FLOAT lagrange_interp(register FLOAT *f,
                              register FLOAT *x,
                              register int order)
 {
@@ -1674,7 +1674,7 @@ int broyden_root(int    n,
       /*
        * Screen for NaN: 
        */
-      if (!finite(x[i]) || !finite(fvec[i])) {
+      if (!isfinite(x[i]) || !isfinite(fvec[i])) {
         fprintf(stderr,"**error:%s, x[%d]=%g fvec[%d]=%g\n",dbmsname,i,x[i],i,fvec[i]);
         exit(1);
       }
@@ -1718,7 +1718,7 @@ int broyden_root(int    n,
      * Screen for NaN: 
      */
     for (i = 0; i < n; i++) {
-      if (!finite(x[i]) || !finite(fvec[i])) {
+      if (!isfinite(x[i]) || !isfinite(fvec[i])) {
         fprintf(stderr,"**error:%s, after global_step(): x[%d]=%g fvec[%d]=%g\n",dbmsname,i,x[i],i,fvec[i]);
         exit(1);
       }
@@ -2235,7 +2235,7 @@ int dogleg_step(int    n,
         /*
          * Screen for NaN.
          */
-        if (!finite(s[i])) {
+        if (!isfinite(s[i])) {
           fprintf(stderr,"**error:%s, s[%d]=%g,*delta=%g,cauchy_length=%g,s_hat=%g",
                            dbmsname,i,s[i],*delta,cauchy_length,s_hat[i]);
           exit(1);
@@ -2259,7 +2259,7 @@ int dogleg_step(int    n,
         /*
          * Screen for NaN.
          */
-        if (!finite(s[i])) {
+        if (!isfinite(s[i])) {
           fprintf(stderr,"**error:%s, s[%d]=%g,lambda=%g,nu_hat=%g,s_hat=%g",
                            dbmsname,i,s[i],lambda,nu_hat[i],s_hat[i]);
           exit(1);
@@ -2326,7 +2326,7 @@ int trust_region(int    n,
    * Screen for NaN.
    */
   for (i = 0; i < n; i++) {
-    if (!finite(s[i])) {
+    if (!isfinite(s[i])) {
       fprintf(stderr,"**error:%s,s[%d]=%g\n",dbmsname,i,s[i]);
       exit(1);
     }

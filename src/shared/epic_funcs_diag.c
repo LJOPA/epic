@@ -1235,7 +1235,7 @@ void free_arrays(planetspec *planet)
  * Use double precision to increase accuracy of diagnostic theta calculations.
  */
 
-inline double return_sigmatheta(register double theta,
+extern inline double return_sigmatheta(register double theta,
                                 register double p,
                                 register double pbot,
                                 register double ptop)
@@ -1268,7 +1268,7 @@ inline double return_sigmatheta(register double theta,
  * Use double precision to increase accuracy of diagnostic theta calculations.
  */
 
-inline double f_sigma(double sigma)
+extern inline double f_sigma(double sigma)
 {
   if (sigma < 0.) {
     return grid.zeta0;
@@ -1297,7 +1297,7 @@ inline double f_sigma(double sigma)
  * Use double precision to increase accuracy of diagnostic theta calculations.
  */
 
-inline double g_sigma(double sigma)
+extern inline double g_sigma(double sigma)
 {
   const double
     coeff = 1./(1-exp(-grid.hybrid_alpha*(1.-grid.sigma_sigma)));
@@ -1748,7 +1748,7 @@ void set_sponge(void)
  *       for Venus or deep Jupiter models.
  */
 
-inline double get_sigma(double pbot,
+double get_sigma(double pbot,
                         double p,
                         double ptop)
 {
@@ -1762,7 +1762,7 @@ inline double get_sigma(double pbot,
  * Inverse of get_sigma() function.  If one is changed, the other should
  * be matched accordingly.
  */
-inline double get_p_sigma(double pbot,
+double get_p_sigma(double pbot,
                           double sigma,
                           double ptop)
 {
