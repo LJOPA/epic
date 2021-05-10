@@ -667,7 +667,7 @@ void zonal_hyperviscosity(planetspec  *planet,
       }
     }
     else {
-      sprintf(Message,"unrecognized grid.geometry=%s");
+      sprintf(Message,"unrecognized grid.geometry=%s",grid.geometry);
       epic_error(dbmsname,Message);
     }
 
@@ -699,7 +699,7 @@ void zonal_hyperviscosity(planetspec  *planet,
     kend   = KHI;
   }
   else {
-    sprintf(Message,"dim=%d not recognized");
+    sprintf(Message,"dim=%d not recognized",dim);
     epic_error(dbmsname,Message);
   }
 
@@ -908,7 +908,7 @@ void meridional_hyperviscosity(planetspec  *planet,
     kend   = KHI;
   }
   else {
-    sprintf(Message,"dim=%d not recognized");
+    sprintf(Message,"dim=%d not recognized",dim);
     epic_error(dbmsname,Message);
   }
 
@@ -1839,7 +1839,7 @@ void divergence_damping(planetspec *planet)
       }
     }
     else {
-      sprintf(Message,"unrecognized grid.geometry=%s");
+      sprintf(Message,"unrecognized grid.geometry=%s",grid.geometry);
       epic_error(dbmsname,Message);
     }
 
@@ -2137,7 +2137,7 @@ void init_subgrid(planetspec *planet)
     dbmsname[]="init_subgrid";
 
   if (!var.nu_turb.on) {
-    sprintf(Message,"var.nu_turb.on is off",var.nu_turb.on);
+    sprintf(Message,"var.nu_turb.on is off");
     epic_error(dbmsname,Message);
   }
 

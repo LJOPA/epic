@@ -2765,7 +2765,7 @@ EPIC_FLOAT get_kin(planetspec *planet,
   /*
    * Screen for nan.
    */
-  if (!finite(kin)) {
+  if (!isfinite(kin)) {
     sprintf(Message,"JI=%d %d, kin=%g, u2=%g u4=%g v2=%g v4=%g; PV_SCHEME=ARAKAWA_LAMB_1981",
                     J,I,kin,u2,u4,v2,v4);
     epic_error(dbmsname,Message);
@@ -2806,7 +2806,7 @@ EPIC_FLOAT get_kin(planetspec *planet,
     /*
      * Screen for nan.
      */
-    if (!finite(kin)) {
+    if (!isfinite(kin)) {
       sprintf(Message,"JI=%d %d, kin=%g, u2=%g u4=%g v2=%g v4=%g; PV_SCHEME=SADOURNEY_1975",
                       J,I,kin,u2,u4,v2,v4);
       epic_error(dbmsname,Message);
@@ -2829,7 +2829,7 @@ EPIC_FLOAT get_kin(planetspec *planet,
     /*
      * Screen for nan.
      */
-    if (!finite(kin)) {
+    if (!isfinite(kin)) {
       sprintf(Message,"JI=%d %d, kin=%g, u2=%g u4=%g v2=%g v4=%g kin_s=%g kin_c=%g; PV_SCHEME=SADOURNEY_1975",
                       J,I,kin,u2,u4,v2,v4,kin_s,kin_c);
       epic_error(dbmsname,Message);
@@ -3057,7 +3057,7 @@ EPIC_FLOAT get_brunt2(planetspec *planet,
                 +temperature/(cp*density*density)*drho_dT_p*drho_dT_p);
 
 #if EPIC_CHECK == 1
-  if (!finite(brunt2)) {
+  if (!isfinite(brunt2)) {
     sprintf(Message,"brunt2=%g, temperature=%g, pressure=%g, density=%g, cp=%g, mu=%g",
                      brunt2,temperature,pressure,density,cp,mu);
     epic_error(dbmsname,Message);
@@ -7247,7 +7247,7 @@ void check_periodic(char *message)
     periodic;
 
   if (IAMNODE == NODE0) {
-    fprintf(stderr,"IT=%d %s:periodic:",grid.itime,message);fflush(stderr);
+    fprintf(stderr,"IT=%lu %s:periodic:",grid.itime,message);fflush(stderr);
   }
 
   /*
@@ -7308,7 +7308,7 @@ void check_periodic(char *message)
   for (K = KLOPAD; K <= KHIPAD; K++) { \
     for (J = JLOPAD; J <= JHIPADPV; J++) { \
       for (I = ILOPAD; I <= IHIPAD; I++) { \
-        if (!finite(U(grid.it_uv,K,J,I))) { \
+        if (!isfinite(U(grid.it_uv,K,J,I))) { \
           fprintf(stderr,"%s(%2d,%2d,%2d,%2d)=%g ", \
                           #U,grid.it_uv,K,J,I,U(grid.it_uv,K,J,I));fflush(stderr); \
           no_nan = FALSE; \
@@ -7330,7 +7330,7 @@ void check_periodic(char *message)
   for (K = KLOPAD; K <= KHIPAD; K++) { \
     for (J = JLOPAD; J <= JHIPADPV; J++) { \
       for (I = ILOPAD; I <= IHIPAD; I++) { \
-        if (!finite(HDRY(K,J,I))) { \
+        if (!isfinite(HDRY(K,J,I))) { \
           fprintf(stderr,"%s(%2d,%2d,%2d)=%g ", \
                        #HDRY,K,J,I,HDRY(K,J,I));fflush(stderr); \
           no_nan = FALSE; \
@@ -7351,7 +7351,7 @@ void check_periodic(char *message)
   for (K = KLOPAD; K <= KHIPAD; K++) { \
     for (J = JLOPAD; J <= JHIPADPV; J++) { \
       for (I = ILOPAD; I <= IHIPAD; I++) { \
-        if (!finite(T2(K,J,I))) { \
+        if (!isfinite(T2(K,J,I))) { \
           fprintf(stderr,"%s(%2d,%2d,%2d)=%g ", \
                        #T2,K,J,I,T2(K,J,I));fflush(stderr); \
           no_nan = FALSE; \
@@ -7374,7 +7374,7 @@ void check_periodic(char *message)
       for (K = KLOPAD; K <= KHIPAD; K++) { \
         for (J = JLOPAD; J <= JHIPADPV; J++) { \
           for (I = ILOPAD; I <= IHIPAD; I++) { \
-            if (!finite(Q(is,ip,K,J,I))) { \
+            if (!isfinite(Q(is,ip,K,J,I))) { \
               fprintf(stderr,"%s(%2d,%2d,%2d)=%g ", \
                              var.species[is].phase[ip].info[0].name,K,J,I,Q(is,ip,K,J,I));fflush(stderr); \
               no_nan = FALSE; \
@@ -7401,7 +7401,7 @@ void check_nan(char *message)
     no_nan;
 
   if (IAMNODE == NODE0) {
-    fprintf(stderr,"IT=%d %s: no nan:",grid.itime,message);fflush(stderr);
+    fprintf(stderr,"IT=%lu %s: no nan:",grid.itime,message);fflush(stderr);
   }
 
   /*

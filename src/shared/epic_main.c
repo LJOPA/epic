@@ -318,7 +318,7 @@ int main(int   argc,
     *ptr = '\0';
     if(chdir(savdir) == -1){
       fprintf(stderr,"Warning: epic_main: Couldn't cd to save directory. \n");
-      fprintf(stderr,savdir);
+      fprintf(stderr,"%s",savdir);
     }
   }
 

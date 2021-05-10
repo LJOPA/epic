@@ -86,8 +86,7 @@ void  MPG_Cart_varfree (int dim, int *start, int *end, int *pad,
 
   for (i=0; i<ptr_list_len & (char *)var != ptr_list[i]; i++);
   if (i == ptr_list_len) {
-    fprintf (stderr, "Cannot find record of allocation at address %#x\n",
-	     var);
+    fprintf (stderr, "Cannot find record of allocation at address %#lx\n",(uintptr_t)var);
     MPI_Abort (MPI_COMM_WORLD, 0);
   }
   
