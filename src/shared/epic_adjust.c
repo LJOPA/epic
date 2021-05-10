@@ -395,7 +395,7 @@ void zonal_filter(int         index,
     }
   }
   else {
-    sprintf(Message,"dim=%d not recognized");
+    sprintf(Message,"dim=%d not recognized",dim);
     epic_error(dbmsname,Message);
   }
 

@@ -923,7 +923,7 @@ void spline_pchip(int            n,
  *    Returns the value of the cubic function at the point xx.
  */
 
-extern inline FLOAT splint_pchip(FLOAT          xx,
+FLOAT splint_pchip(FLOAT          xx,
                           float_triplet *table,
                           FLOAT          h)
 {

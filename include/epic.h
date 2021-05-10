@@ -669,11 +669,11 @@ void uv_pgrad(planetspec  *planet);
 void uv_drag(planetspec  *planet,
              EPIC_FLOAT **Buff2D);
 
-inline double get_sigma(double pbot,
+double get_sigma(double pbot,
                         double p,
                         double ptop);
 
-inline double get_p_sigma(double pbot,
+double get_p_sigma(double pbot,
                           double sigma,
                           double ptop);
 
@@ -1117,12 +1117,12 @@ EPIC_FLOAT enthalpy(EPIC_FLOAT temperature,
 /*
  * Use double precision to increase accuracy of diagnostic theta calculations.
  */
-extern inline double return_sigmatheta(register double theta,
+double return_sigmatheta(register double theta,
                                 register double p,
                                 register double pbot,
                                 register double ptop);
-inline double f_sigma(register double sigma);
-inline double g_sigma(register double sigma);
+double f_sigma(register double sigma);
+double g_sigma(register double sigma);
 
 /* Values for theta_flag: */
 #define THETA_VIA_VAR 0
@@ -1178,7 +1178,7 @@ void input_string(char   *prompt,
                   char   *def, 
                   char   *ans);
 
-inline int time_mod(int *time,
+int time_mod(int *time,
                     int  step);
 
 void check_periodic(char *message);

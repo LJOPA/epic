@@ -118,7 +118,7 @@ void init_subgrid(planetspec *planet);
 
 void set_diffusion_coef(planetspec *planet);
 
-extern inline void source_sink_turb(planetspec  *planet,
+void source_sink_turb(planetspec  *planet,
 	                     EPIC_FLOAT **Buff2D);
 
 void source_sink_SA(planetspec  *planet,

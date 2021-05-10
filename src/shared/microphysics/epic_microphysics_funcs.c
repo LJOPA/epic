@@ -577,8 +577,8 @@ int read_enthalpy_change_data(int             species_index,
  */
 EPIC_FLOAT enthalpy_change(int            species_index,
                            int            init_phase,
-			   int            final_phase,
-			   EPIC_FLOAT     temperature,
+			                     int            final_phase,
+			                     EPIC_FLOAT     temperature,
                            int            ndat,
                            float_triplet *hi,
                            float_triplet *hf,
@@ -649,12 +649,12 @@ EPIC_FLOAT enthalpy_change(int            species_index,
   /*
    * Check for NaN.
    */
-  if (!finite(enth_init)) {
+  if (!isfinite(enth_init)) {
     sprintf(Message,"species=%s, temperature=%g, init_phase=%d enth_init=%g",
                      var.species[species_index].info[0].name,init_phase,temperature,enth_init);
     epic_error(dbmsname,Message);
   }
-  if (!finite(enth_final)) {
+  if (!isfinite(enth_final)) {
     sprintf(Message,"species=%s, final_phase=%d, temperature=%g enth_final=%g",
                      var.species[species_index].info[0].name,final_phase,temperature,enth_final);
     epic_error(dbmsname,Message);
