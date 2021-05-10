@@ -14,5 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: make all
+      env:
+        EPIC4_PATH: ~/epic
+        MPI_TYPE: openmpi
+        MACHINE_TYPE: LINUX
+        EPIC_CC: gcc
+        EPIC_CFLAG: -g
+        EPIC_PRECISION: 8
       working-directory: ./src
       run: make all
