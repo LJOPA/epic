@@ -633,7 +633,7 @@ inline FLOAT splint(register FLOAT          xx,
  * to make it easy to switch between the two.
  */
 
-extern inline FLOAT linint(register FLOAT          xx,
+FLOAT linint(register FLOAT          xx,
                     register float_triplet *table,
                     register FLOAT          dx)
 {

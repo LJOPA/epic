@@ -2418,7 +2418,7 @@ void stability_factor(int         index,
  * NOTE: There is a name conflict with "source_sink_subgrid" and 
  *       LAM MPI, in the file lam_config_file.h.
  */
-extern inline void source_sink_turb(planetspec  *planet,
+void source_sink_turb(planetspec  *planet,
                              EPIC_FLOAT **Buff2D)
 {
 

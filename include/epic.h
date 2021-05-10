@@ -1118,9 +1118,9 @@ EPIC_FLOAT enthalpy(EPIC_FLOAT temperature,
  * Use double precision to increase accuracy of diagnostic theta calculations.
  */
 double return_sigmatheta(register double theta,
-                                register double p,
-                                register double pbot,
-                                register double ptop);
+                         register double p,
+                         register double pbot,
+                         register double ptop);
 double f_sigma(register double sigma);
 double g_sigma(register double sigma);
 

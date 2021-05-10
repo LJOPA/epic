@@ -235,9 +235,9 @@ FLOAT linint(register FLOAT          xx,
 void spline_pchip(int            n,
                   float_triplet *table);
 
- FLOAT splint_pchip(FLOAT          xx,
-                                 float_triplet *table,
-                                 FLOAT          h);
+FLOAT splint_pchip(FLOAT          xx,
+                   float_triplet *table,
+                   FLOAT          h);
 
 FLOAT pchst(FLOAT arg1,
                           FLOAT arg2);
