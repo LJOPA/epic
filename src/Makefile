@@ -49,7 +49,7 @@ all:
 	  echo "netCDF is built" ; \
 	else \
 	  echo "Configuring netCDF (Network Common Data Format)..." ; \
-	  ./configure --prefix=$(EPIC4_PATH)/netcdf >& configure.log ; \
+	  ./configure --prefix=$(EPIC4_PATH)/netcdf > configure.log ; \
 	  echo "Making netCDF..." ; \
 	  make ; \
 	  echo "Installing netCDF..." ; \
