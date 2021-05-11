@@ -6,5 +6,6 @@ src/single/change
 src/single/initial
 src/single/epic
 .idea
-netcdf/
+netcdf/*
 src/mpi/mpi_epic
+*.log
