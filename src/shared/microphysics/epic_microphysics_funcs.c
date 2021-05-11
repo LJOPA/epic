@@ -651,7 +651,7 @@ EPIC_FLOAT enthalpy_change(int            species_index,
    */
   if (!isfinite(enth_init)) {
     sprintf(Message,"species=%s, temperature=%g, init_phase=%d enth_init=%g",
-                     var.species[species_index].info[0].name,init_phase,temperature,enth_init);
+                     var.species[species_index].info[0].name,temperature,init_phase,enth_init);
     epic_error(dbmsname,Message);
   }
   if (!isfinite(enth_final)) {

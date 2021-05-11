@@ -7156,7 +7156,7 @@ void timeplane_bookkeeping(void)
     fprintf(stderr,"%s ",#U);fflush(stderr); \
   } \
   else { \
-    sprintf(Message,"\n itime=%d",grid.itime); \
+    sprintf(Message,"\n itime=%lu",grid.itime); \
     epic_error(message,Message); \
   }
 
@@ -7180,7 +7180,7 @@ void timeplane_bookkeeping(void)
     fprintf(stderr,"%s ",#HDRY);fflush(stderr); \
   } \
   else { \
-    sprintf(Message,"\n itime=%d",grid.itime); \
+    sprintf(Message,"\n itime=%lu",grid.itime); \
     epic_error(message,Message); \
   }
 
@@ -7204,7 +7204,7 @@ void timeplane_bookkeeping(void)
     fprintf(stderr,"%s ",#T2);fflush(stderr); \
   } \
   else { \
-    sprintf(Message,"\n itime=%d",grid.itime); \
+    sprintf(Message,"\n itime=%lu",grid.itime); \
     epic_error(message,Message); \
   }
 
@@ -7232,7 +7232,7 @@ void timeplane_bookkeeping(void)
         fprintf(stderr,"%s ",var.species[is].phase[ip].info[0].name);fflush(stderr); \
       } \
       else { \
-        sprintf(Message,"\n itime=%d",grid.itime); \
+        sprintf(Message,"\n itime=%lu",grid.itime); \
         epic_error(message,Message); \
       } \
     } \
@@ -7320,7 +7320,7 @@ void check_periodic(char *message)
     fprintf(stderr,"%s ",#U);fflush(stderr); \
   } \
   else { \
-    sprintf(Message,"\n itime=%d",grid.itime); \
+    sprintf(Message,"\n itime=%lu",grid.itime); \
     epic_error(message,Message); \
   }
 
@@ -7342,7 +7342,7 @@ void check_periodic(char *message)
     fprintf(stderr,"%s ",#HDRY);fflush(stderr); \
   } \
   else { \
-    sprintf(Message,"\n itime=%d",grid.itime); \
+    sprintf(Message,"\n itime=%lu",grid.itime); \
     epic_error(message,Message); \
   }
 
@@ -7363,7 +7363,7 @@ void check_periodic(char *message)
     fprintf(stderr,"%s ",#T2);fflush(stderr); \
   } \
   else { \
-    sprintf(Message,"\n itime=%d",grid.itime); \
+    sprintf(Message,"\n itime=%lu",grid.itime); \
     epic_error(message,Message); \
   }
 
@@ -7386,7 +7386,7 @@ void check_periodic(char *message)
         fprintf(stderr,"%s ",var.species[is].phase[ip].info[0].name);fflush(stderr); \
       } \
       else { \
-        sprintf(Message,"\n itime=%d",grid.itime); \
+        sprintf(Message,"\n itime=%lu",grid.itime); \
         epic_error(message,Message); \
       } \
     } \

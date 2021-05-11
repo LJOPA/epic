@@ -1489,13 +1489,13 @@ void var_write(planetspec   *planet,
       fprintf(stdout,"Writing POST_HEADER_DATA to %s \n",outfile);
     }
     else if (portion == VAR_DATA) {
-      fprintf(stdout,"Writing VAR_DATA to %s for timestep %d\n",outfile,grid.itime);
+      fprintf(stdout,"Writing VAR_DATA to %s for timestep %lu\n",outfile,grid.itime);
     }
     else if (portion == EXTRACT_DATA) {
-      fprintf(stdout,"Writing EXTRACT_DATA to %s for timestep %d \n",outfile,grid.itime);
+      fprintf(stdout,"Writing EXTRACT_DATA to %s for timestep %lu\n",outfile,grid.itime);
     }
     else if (portion == ALL_DATA) {
-      fprintf(stdout,"Writing ALL_DATA to %s for timestep %d\n",outfile,grid.itime);
+      fprintf(stdout,"Writing ALL_DATA to %s for timestep %lu\n",outfile,grid.itime);
     }
     else {
       sprintf(Message,"unrecognized portion = %d",portion);
@@ -1805,7 +1805,7 @@ void var_write(planetspec   *planet,
 #endif
 
     if (nc_err != NC_NOERR) {
-      sprintf(Message,"t_index=%d, %s",t_index[0],nc_strerror(nc_err));
+      sprintf(Message,"t_index=%zu, %s",t_index[0],nc_strerror(nc_err));
       epic_error(dbmsname,Message);
     }
   }
@@ -1824,7 +1824,7 @@ void var_write(planetspec   *planet,
 #endif
 
     if (nc_err != NC_NOERR) {
-      sprintf(Message,"Writing L_s, t_index=%d, %s",t_index[0],nc_strerror(nc_err));
+      sprintf(Message,"Writing L_s, t_index=%zu, %s",t_index[0],nc_strerror(nc_err));
       epic_error(dbmsname,Message);
     }
   }
@@ -4877,7 +4877,7 @@ void scdswap(char *arr,
 void epic_error(char *calling_function,
                 char *Message)
 {
-  fprintf(stderr,"\n** EPIC Error: node=%d, timestep=%d, %s(): %s\n",
+  fprintf(stderr,"\n** EPIC Error: node=%d, timestep=%lu, %s(): %s\n",
                  IAMNODE,grid.itime,calling_function,Message);
   fflush(stderr);
 
@@ -4898,7 +4898,7 @@ void epic_error(char *calling_function,
 void epic_warning(char *calling_function,
                   char *Message)
 {
-  fprintf(stderr,"EPIC Warning: node=%d, timestep=%d, %s(): %s\n",
+  fprintf(stderr,"EPIC Warning: node=%d, timestep=%lu, %s(): %s\n",
                  IAMNODE,grid.itime,calling_function,Message);
   fflush(stderr);
 

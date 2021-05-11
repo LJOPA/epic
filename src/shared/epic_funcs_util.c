@@ -4446,7 +4446,7 @@ void savitzky_golay(FLOAT *c,
    * Screen for inconsistent arguments.
    */
   if (np < nl+nr+1) {
-    fprintf(stderr,"**error: %s: np=%d < nl+nr+1=%d",np,nl+nr+1);
+    fprintf(stderr,"**error: %s: np=%d < nl+nr+1=%d",dbmsname,np,nl+nr+1);
     exit(1);
   }
   else if (nl < 0) {
