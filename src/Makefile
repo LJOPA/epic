@@ -33,17 +33,30 @@
 #
 
 SHELL = /bin/sh
+CFLAGS = -g3
+LDFLAGS = -g3
+EPIC_CHECK = 0
+CC = /usr/bin/cc
 
-all:
-	@if [ $(MACHINE_TYPE) = LINUX ] ; then \
-	  export CC=/usr/bin/gcc ; \
-	  export FC="" ; \
-	  export CXX="" ; \
-	elif [ $(MACHINE_TYPE) = Darwin ] ; then \
-	  export CC=/usr/bin/cc ; \
-	  export FC="" ; \
-	  export CXX="" ; \
+all: netcdf
+	@export CC=$(CC)
+	export EPIC_CHECK=$(EPIC_CHECK) ; \
+	export CFLAGS=$(CFLAGS) ; \
+	export LDFLAGS=$(LDFLAGS) ; \
+	if [ $(MPI_TYPE) != none ] ; then \
+	  cd $(EPIC4_PATH)/src/mpg ; \
+	  make ; \
+	  cd $(EPIC4_PATH)/src/mpi ; \
+	  make ; \
+	else \
+	  echo MPI_TYPE = $(MPI_TYPE) ; \
 	fi ; \
+	cd $(EPIC4_PATH)/src/single ; \
+	make
+
+netcdf: 
+	@export FC="" ; \
+	export CXX="" ; \
 	cd $(EPIC4_PATH)/netcdf/src ; \
 	if [ -f ./config.status ] ; then \
 	  echo "netCDF is built" ; \
@@ -55,94 +68,6 @@ all:
 	  echo "Installing netCDF..." ; \
 	  make install ; \
 	fi ;
-	@if [ "$(EPIC_CFLAG)" = "-g" ] ; then \
-	  export CFLAGS="-g" ; \
-	  export LDFLAGS="-g" ; \
-	  export EPIC_CHECK="1" ; \
-	elif [ "$(EPIC_CFLAG)" = "-O_opteron" ] ; then \
-	  export CFLAGS="-march=opteron -O2 -pipe" ; \
-	  export LDFLAGS="" ; \
-	  export EPIC_CHECK="0" ; \
-	elif [ "$(EPIC_CFLAG)" = "-O_CPL" ] ; then \
-	  export CFLAGS="-O3 -march=athlon-xp" ; \
-	  export LDFLAGS="" ; \
-	  export EPIC_CHECK="0" ; \
-	elif [ "$(EPIC_CFLAG)" = "-O_CPL2" ] ; then \
-	  export CFLAGS="-O3" ; \
-	  export LDFLAGS="" ; \
-	  export EPIC_CHECK="0" ; \
-	elif [ "$(EPIC_CFLAG)" = "-O_tdmac" ] ; then \
-	  export CFLAGS="-O3" ; \
-	  export LDFLAGS="" ; \
-	  export EPIC_CHECK="0" ; \
-	elif [ "$(EPIC_CFLAG)" = "-O" ] ; then \
-	  if [ $(EPIC_CC) = gcc ] ; then \
-	    export CFLAGS="-g -O2" ; \
-	    export LDFLAGS="-g" ; \
-	    export EPIC_CHECK="0" ; \
-	  elif [ $(MACHINE_TYPE) = hpux ] ; then \
-	    export CFLAGS="-O +Onolimit" ; \
-	    export EPIC_CHECK="0" ; \
-	  elif [ $(MACHINE_TYPE) = sp2 ] ; then \
-	    export CFLAGS="-O -qmaxmem=-1" ; \
-	    export EPIC_CHECK="0" ; \
-	  else \
-	    export CFLAGS="-O2" ; \
-	    export EPIC_CHECK="0" ; \
-	  fi ; \
-	elif [ "$(EPIC_CFLAG)" = "-p" ] ; then \
-	  if [ $(EPIC_CC) = gcc ] ; then \
-	    export CFLAGS="-pg" ; \
-	    export LDFLAGS="-pg" ; \
-	    export EPIC_CHECK="0" ; \
-	  elif [ $(MACHINE_TYPE) = hpux ] ; then \
-	    export CFLAGS="-p" ; \
-	    export LDFLAGS="-p" ; \
-	    export EPIC_CHECK="0" ; \
-	  elif [ $(MACHINE_TYPE) = sp2 ] ; then \
-	    export CFLAGS="-p" ; \
-	    export LDFLAGS="-p" ; \
-	    export EPIC_CHECK="0" ; \
-	  else \
-	    export CFLAGS="-pg" ; \
-	    export LDFLAGS="-pg" ; \
-	    export EPIC_CHECK="0" ; \
-	  fi ; \
-	elif [ "$(EPIC_CFLAG)" = "-pO" ] ; then \
-	  if [ $(EPIC_CC) = gcc ] ; then \
-	    export CFLAGS="-pg -O2" ; \
-	    export LDFLAGS="-pg" ; \
-	    export EPIC_CHECK="0" ; \
-	  elif [ $(MACHINE_TYPE) = hpux ] ; then \
-	    export CFLAGS="-p -O +Onolimit" ; \
-	    export LDFLAGS="-p" ; \
-	    export EPIC_CHECK="0" ; \
-	  elif [ $(MACHINE_TYPE) = sp2 ] ; then \
-	    export CFLAGS="-p -O -qmaxmem=-1" ; \
-	    export LDFLAGS="-p" ; \
-	    export EPIC_CHECK="0" ; \
-	  else \
-	    export CFLAGS="-pg -O2" ; \
-	    export LDFLAGS="-pg" ; \
-	    export EPIC_CHECK="0" ; \
-	  fi ; \
-	else \
-	  echo "" ; \
-	  echo "No recognized EPIC_CFLAG; defaulting to environment-variable compiler and linker flags" ; \
-	  echo "Setting EPIC_CHECK=0" ; \
-	  echo "" ; \
-	  export EPIC_CHECK="0" ; \
-	fi ; \
-	if [ $(MPI_TYPE) != none ] ; then \
-	  cd $(EPIC4_PATH)/src/mpg ; \
-	  make ; \
-	  cd $(EPIC4_PATH)/src/mpi ; \
-	  make ; \
-	else \
-	  echo MPI_TYPE = $(MPI_TYPE) ; \
-	fi ; \
-	cd $(EPIC4_PATH)/src/single ; \
-	make
 
 clean:
 	@cd $(EPIC4_PATH)/netcdf/src ; \
@@ -178,7 +103,7 @@ distclean:
 	cd $(EPIC4_PATH)/tools/idl ; \
 	rm -f *BAK *bak *~ *% *.ps *.dat *.nc *.pca *.gif *.log; \
 	cd $(EPIC4_PATH)/tools/matlab ; \
-	DISTCLEAN_EPICncVis ; \
+	./DISTCLEAN_EPICncVis ; \
 	cd $(EPIC4_PATH)/util ; \
 	rm -f *BAK *bak *~ *% *.log ; \
 	cd $(EPIC4_PATH)/include ; \
