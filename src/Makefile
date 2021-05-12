@@ -39,7 +39,7 @@ EPIC_CHECK = 0
 CC = /usr/bin/cc
 
 all: netcdf
-	@export CC=$(CC)
+	@export CC=$(CC) ; \
 	export EPIC_CHECK=$(EPIC_CHECK) ; \
 	export CFLAGS=$(CFLAGS) ; \
 	export LDFLAGS=$(LDFLAGS) ; \

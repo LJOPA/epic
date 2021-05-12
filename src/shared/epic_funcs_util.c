@@ -997,7 +997,7 @@ FLOAT splint_pchip(FLOAT          xx,
  *    +1.0, if arg1 and arg2 are of the same sign.
  */
 
-extern inline FLOAT pchst(FLOAT arg1,
+FLOAT pchst(FLOAT arg1,
                           FLOAT arg2)
 {
   FLOAT
